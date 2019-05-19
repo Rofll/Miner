@@ -21,7 +21,7 @@ public class TileRandomCreateCommand : BaseCommand
         lootObjectModel.Add(new LootObjectModel(ResourceTypesEnum.Gold, 10, 3));
         lootObjectModel.Add(new LootObjectModel(ResourceTypesEnum.Null, 20, 3));
 
-        List<ResourceModel> tileResources = lootDropTable.GetLoot(lootObjectModel, 3, 10);
+        List<ResourceModel> tileResources = lootDropTable.GetLoot(lootObjectModel, 3, 100);
 
         foreach (ResourceModel tileResource in tileResources)
         {

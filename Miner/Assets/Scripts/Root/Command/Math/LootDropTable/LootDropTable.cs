@@ -43,8 +43,12 @@ public class LootDropTable
         totalWeight = 0;
         nullebleWeight = 0;
 
+        bool isInit = false;
+
         foreach (LootObjectModel lootObject in lootObjects)
         {
+            isInit = true;
+
             if (lootObject.Item != ResourceTypesEnum.Null)
             {
                 totalWeight += lootObject.Weight * lootObject.Count;
@@ -153,8 +157,10 @@ public class LootDropTable
                         lootObject.DecreaseCount(1);
 
                         if (lootObject.Count <= 0)
-                            lootObjects.Remove(lootObject);
-
+                        {
+                            ClearLists(lootObjects, lootObject);
+                        }
+                        
                         break;
                     }
                 }
@@ -162,5 +168,13 @@ public class LootDropTable
                 break;
             }
         }
+    }
+
+    private void ClearLists(List<LootObjectModel> lootObjects, LootObjectModel lootObject)
+    {
+        lootObjects.Remove(lootObject);
+        chancesRange.Remove(lootObject.Item);
+        weights.Remove(lootObject.Item);
+        chances.Remove(lootObject.Item);
     }
 }
