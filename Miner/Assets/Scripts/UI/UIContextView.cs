@@ -7,7 +7,6 @@ public class UIContextView : ContextViewRoot
     protected override void Start()
     {
         GameObject.DontDestroyOnLoad(this);
-        instance = this;
         RunContext();
     }
 
@@ -15,7 +14,7 @@ public class UIContextView : ContextViewRoot
     protected override void RunContext()
     {
         context = new UIContextRoot(this);
-        context.Start();
+        //context.Start();
     }
 }
 

@@ -45,7 +45,7 @@ namespace strange.extensions.mediation.impl
 
 		public void Trigger(MediationEvent evt, IView view)
 		{
-			Type viewType = view.GetType();
+            Type viewType = view.GetType();
 			IMediationBinding binding = GetBinding (viewType) as IMediationBinding;
 			if (binding != null)
 			{
@@ -65,20 +65,21 @@ namespace strange.extensions.mediation.impl
 						DisableView (view, binding);
 						break;
 					default:
-						break;
+                        break;
 				}
 			}
 			else if (evt == MediationEvent.AWAKE)
 			{
 				//Even if not mapped, Views (and their children) have potential to be injected
 				InjectViewAndChildren(view);
-			}
+            }
 		}
 
 		/// Add a Mediator to a View. If the mediator is a "true" Mediator (i.e., it
 		/// implements IMediator), perform PreRegister and OnRegister.
 		protected virtual void ApplyMediationToView(IMediationBinding binding, IView view, Type mediatorType)
 		{
+
 			bool isTrueMediator = IsTrueMediator(mediatorType);
 			if (!isTrueMediator || !HasMediator(view, mediatorType))
 			{
@@ -118,12 +119,12 @@ namespace strange.extensions.mediation.impl
 						continue;
 					}
 					iView.registeredWithContext = true;
-					if (iView.Equals(view) == false)
+                    if (iView.Equals(view) == false)
 						Trigger(MediationEvent.AWAKE, iView);
 				}
 			}
 			injectionBinder.injector.Inject(view, false);
-		}
+        }
 
 		protected virtual bool IsTrueMediator(Type mediatorType)
 		{
@@ -224,7 +225,7 @@ namespace strange.extensions.mediation.impl
 		/// Takes a specific View instance and a binding and, if a binding is found for that type, creates and registers a Mediator.
 		virtual protected void MapView(IView view, IMediationBinding binding)
 		{
-			Type viewType = view.GetType();
+            Type viewType = view.GetType();
 
 			if (bindings.ContainsKey (viewType))
 			{

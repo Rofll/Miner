@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class MainCameraView : BaseView 
 {
-    public void OnRegister()
+    public override void OnRegister()
     {
         Debug.LogError("Hello");
+
+        dispatcher.Dispatch(RootEvents.E_TileCreateSpecific);
     }
 
-    public void OnRemove()
+    public override void OnRemove()
     {
 
     }

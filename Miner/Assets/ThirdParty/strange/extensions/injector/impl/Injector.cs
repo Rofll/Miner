@@ -140,18 +140,20 @@ namespace strange.extensions.injector.impl
 
 		public object Inject(object target, bool attemptConstructorInjection)
 		{
-			failIf(binder == null, "Attempt to inject into Injector without a Binder", InjectionExceptionType.NO_BINDER);
+
+            failIf(binder == null, "Attempt to inject into Injector without a Binder", InjectionExceptionType.NO_BINDER);
 			failIf(reflector == null, "Attempt to inject without a reflector", InjectionExceptionType.NO_REFLECTOR);
 			failIf(target == null, "Attempt to inject into null instance", InjectionExceptionType.NULL_TARGET);
 
-			//Some things can't be injected into. Bail out.
-			Type t = target.GetType ();
+
+            //Some things can't be injected into. Bail out.
+            Type t = target.GetType ();
 			if (t.IsPrimitive || t == typeof(Decimal) || t == typeof(string))
 			{
 				return target;
 			}
 
-			IReflectedClass reflection = reflector.Get (t);
+            IReflectedClass reflection = reflector.Get (t);
 
 			if (attemptConstructorInjection)
 			{
@@ -159,7 +161,8 @@ namespace strange.extensions.injector.impl
 			}
 			performSetterInjection(target, reflection);
 			postInject(target, reflection);
-			return target;
+
+            return target;
 		}
 
 		public void Uninject(object target)

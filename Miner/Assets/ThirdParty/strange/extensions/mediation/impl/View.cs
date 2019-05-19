@@ -86,8 +86,12 @@ namespace strange.extensions.mediation.impl
 		/// attempt to connect again at this moment.
 		protected virtual void Start()
 		{
-			if (autoRegisterWithContext && !registeredWithContext && shouldRegister)
-				bubbleToContext(this, BubbleType.Add, true);
+		    if (autoRegisterWithContext && !registeredWithContext && shouldRegister)
+		    {
+                bubbleToContext(this, BubbleType.Add, true);
+		    }
+            
+            
 		}
 
 		/// A MonoBehaviour OnDestroy handler
@@ -154,7 +158,7 @@ namespace strange.extensions.mediation.impl
 
 						if (success)
 						{
-							return;
+                            return;
 						}
 					}
 				}
@@ -166,10 +170,10 @@ namespace strange.extensions.mediation.impl
 				{
 					Context.firstContext.AddView(view);
 					registeredWithContext = true;
-					return;
+                    return;
 				}
 
-				string msg = (loopLimiter == LOOP_MAX) ?
+                string msg = (loopLimiter == LOOP_MAX) ?
 					msg = "A view couldn't find a context. Loop limit reached." :
 						msg = "A view was added with no context. Views must be added into the hierarchy of their ContextView lest all hell break loose.";
 				msg += "\nView: " + view.ToString();

@@ -6,13 +6,16 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
 
-public class BaseView : View
+public abstract class BaseView : View
 {
 	[Inject( ContextKeys.CONTEXT_DISPATCHER )]
 	public IEventDispatcher dispatcher { get; set;}
 
     [Inject]
-    public ICoroutineWorker CoroutineWorkero { get; set; }
+    public ICoroutineWorker CoroutineWorker { get; set; }
+
+    public abstract void OnRegister();
+    public abstract void OnRemove();
 
     public void AddListenerToButton( Button button, UnityAction call )
 	{

@@ -26,6 +26,7 @@
  * your extension from the ContextView.
  */
 
+using System.Diagnostics;
 using strange.extensions.context.api;
 using strange.framework.impl;
 
@@ -52,7 +53,7 @@ namespace strange.extensions.context.impl
 			//If firstContext was unloaded, the contextView will be null. Assign the new context as firstContext.
 			if (firstContext == null || firstContext.GetContextView() == null)
 			{
-				firstContext = this;
+                firstContext = this;
 			}
 			else
 			{

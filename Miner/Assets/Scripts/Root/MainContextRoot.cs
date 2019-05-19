@@ -11,12 +11,16 @@ using strange.extensions.dispatcher.eventdispatcher.api;
 
 public class MainContextRoot : MVCSContext
 {
-	public MainContextRoot( MonoBehaviour contextView ):base( contextView,ContextStartupFlags.MANUAL_MAPPING )
-	{
-	}
+    public MainContextRoot(MonoBehaviour view) : base(view)
+    {
+    }
 
-	// CoreComponents
-	protected override void addCoreComponents()
+    public MainContextRoot(MonoBehaviour view, ContextStartupFlags flags) : base(view, flags)
+    {
+    }
+
+    // CoreComponents
+    protected override void addCoreComponents()
 	{
 		base.addCoreComponents();
 
@@ -31,7 +35,7 @@ public class MainContextRoot : MVCSContext
 	// Commands and Bindings
     protected override void mapBindings()
     {
-        base.mapBindings();
+        //base.mapBindings();
 
         // System Commands
         commandBinder.Bind(ContextEvent.START).To<AppLoadCommand>().Pooled().InSequence().Once();
@@ -41,12 +45,23 @@ public class MainContextRoot : MVCSContext
 #elif UNITY_ANDROID
 #elif UNITY_EDITOR
 #endif
+            .To<RetainOneFrameCommand>()
             .To<MainCameraAddCommand>()
+            .To<TileCreateCommand>()
             .Pooled()
             .InSequence()
             .Once();
 
+        // Root
         mediationBinder.BindView<MainCameraView>().ToMediator<MainCameraMediator>();
+        //
 
+        // Game
+        mediationBinder.BindView<TileView>().ToMediator<TileMediator>();
+        //
+
+        // UI
+
+        //
     }
 }

@@ -25,7 +25,7 @@ public class BaseCommand : EventCommand
 	public IEvent eventData { get; set; }
 
     [Inject]
-    public ICoroutineWorker CoroutineWorkero { get; set; }
+    public ICoroutineWorker CoroutineWorker { get; set; }
 
     public override void Execute()
     {

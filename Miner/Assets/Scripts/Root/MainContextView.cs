@@ -8,6 +8,8 @@ public class MainContextView : ContextViewRoot
     public static IEventDispatcher strangeDispatcher = null;
     public bool IsDebug = false;
 
+    public static MainContextView instance = null;
+
     private void Awake()
     {
 #if UNITY_EDITOR
@@ -31,7 +33,7 @@ public class MainContextView : ContextViewRoot
     protected override void RunContext()
     {
         context = new MainContextRoot(this);
-        context.Start();
+        //context.Start();
     }
 
     private void InitDispather()

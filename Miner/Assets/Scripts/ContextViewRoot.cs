@@ -6,8 +6,6 @@ using strange.extensions.dispatcher.eventdispatcher.api;
 
 public abstract class ContextViewRoot : strange.extensions.context.impl.ContextView
 {
-    public static ContextViewRoot instance = null;
-
     protected abstract void RunContext();
 
     protected abstract void Start();
