@@ -40,6 +40,6 @@ public class GameContextRoot : MVCSContext
 
         crossContextBridge.Bind(RootEvents.E_TileCreateSpecific);
 
-        commandBinder.Bind(RootEvents.E_TileCreateSpecific).To<TileCreateCommand>();
+        commandBinder.Bind(RootEvents.E_TileCreateSpecific).To<TileConcreteCreateCommand>();
     }
 }

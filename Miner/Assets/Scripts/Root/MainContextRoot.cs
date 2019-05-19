@@ -47,7 +47,8 @@ public class MainContextRoot : MVCSContext
 #endif
             .To<RetainOneFrameCommand>()
             .To<MainCameraAddCommand>()
-            .To<TileCreateCommand>()
+            //.To<TileConcreteCreateCommand>()
+            .To<TileRandomCreateCommand>()
             .Pooled()
             .InSequence()
             .Once();

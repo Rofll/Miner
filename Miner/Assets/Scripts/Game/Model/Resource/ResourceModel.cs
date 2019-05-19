@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,7 +12,7 @@ public class ResourceModel
     }
 
     private readonly ResourceTypesEnum resourceType;
-    private readonly int resourceCount = 0;
+    private int resourceCount = 0;
 
     public ResourceTypesEnum ResourceType
     {
@@ -21,5 +22,15 @@ public class ResourceModel
     public int ResourceCount
     {
         get { return resourceCount; }
+    }
+
+    public void AddResource(int count)
+    {
+        resourceCount += count;
+    }
+
+    public override string ToString()
+    {
+        return String.Format("ResourceType: {0}, ResourceCount: {1}", resourceType, resourceCount);
     }
 }

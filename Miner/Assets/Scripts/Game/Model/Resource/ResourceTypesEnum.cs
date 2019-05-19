@@ -12,5 +12,7 @@ public enum ResourceTypesEnum
     Crystal,
     Chest,
 
+    Null,
+
     End
 }
