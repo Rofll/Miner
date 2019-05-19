@@ -21,16 +21,22 @@ public class LootDropTable
         {
             InitWeight(lootObjects);
 
-            if (i == minDrop - 1)
+            if (i == minDrop)
             {
                 totalWeight += nullebleWeight;
                 weights.Add(ResourceTypesEnum.Null, nullebleWeight);
             }
 
+            else if (i > minDrop)
+            {
+                totalWeight += nullebleWeight;
+                weights[ResourceTypesEnum.Null] = nullebleWeight;
+            }
+
             CalculateChance();
             ChangesRange();
 
-            float random = Random.Range(0f, 100f);
+            float random = Random.Range(0f, 100.1f);
 
             GetResource(random, lootObjects);
         }
@@ -43,12 +49,8 @@ public class LootDropTable
         totalWeight = 0;
         nullebleWeight = 0;
 
-        bool isInit = false;
-
         foreach (LootObjectModel lootObject in lootObjects)
         {
-            isInit = true;
-
             if (lootObject.Item != ResourceTypesEnum.Null)
             {
                 totalWeight += lootObject.Weight * lootObject.Count;
@@ -108,8 +110,8 @@ public class LootDropTable
             }
             else
             {
-                minMaxDoubleModel = new MathMinMaxDoubleModel(previousValue, chance.Value);
-                previousValue = chance.Value;
+                minMaxDoubleModel = new MathMinMaxDoubleModel(previousValue, chance.Value + previousValue);
+                previousValue = chance.Value + previousValue;
             }
 
             if (!chances.ContainsKey(chance.Key))
