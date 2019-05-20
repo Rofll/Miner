@@ -4,7 +4,7 @@ using strange.extensions.context.impl;
 using strange.extensions.dispatcher.eventdispatcher.impl;
 using strange.extensions.dispatcher.eventdispatcher.api;
 
-public abstract class ContextViewRoot : strange.extensions.context.impl.ContextView
+public abstract class ContextViewRoot : ContextView
 {
     protected abstract void RunContext();
 

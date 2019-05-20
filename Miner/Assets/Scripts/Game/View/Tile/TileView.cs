@@ -7,11 +7,13 @@ public class TileView : BaseView
 
     private TileTypesEnum tileType;
     private List<ResourceModel> resourceses;
+    private Vector2 position = Vector2.zero;
 
-    public void Init(TileTypesEnum tileType, List<ResourceModel> resourceses)
+    public void Init(TileModel tileModel)
     {
-        this.tileType = tileType;
-        this.resourceses = resourceses;
+        this.tileType = tileModel.TileType;
+        this.resourceses = tileModel.Resources;
+        this.position = tileModel.Position;
     }
 
     public override void OnRegister()

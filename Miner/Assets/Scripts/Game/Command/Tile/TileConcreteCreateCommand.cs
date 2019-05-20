@@ -29,6 +29,6 @@ public class TileConcreteCreateCommand : BaseCommand
 
         TileView tileView = clone.GetComponent<TileView>();
 
-        tileView.Init(tileModel.TileType, tileModel.Resources);
+        tileView.Init(tileModel);
     }
 }

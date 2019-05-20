@@ -10,7 +10,7 @@ public class MainContextView : ContextViewRoot
 
     public static MainContextView instance = null;
 
-    private void Awake()
+    protected override void Start()
     {
 #if UNITY_EDITOR
         if (IsDebug)
@@ -22,11 +22,6 @@ public class MainContextView : ContextViewRoot
         instance = this;
 
         RunContext();
-    }
-
-    protected override void Start()
-    {
-
     }
 
 

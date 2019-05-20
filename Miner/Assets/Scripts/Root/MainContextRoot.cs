@@ -49,6 +49,7 @@ public class MainContextRoot : MVCSContext
             .To<MainCameraAddCommand>()
             //.To<TileConcreteCreateCommand>()
             .To<TileRandomCreateCommand>()
+            .To<WorldCreationCommand>()
             .Pooled()
             .InSequence()
             .Once();
@@ -59,6 +60,7 @@ public class MainContextRoot : MVCSContext
 
         // Game
         mediationBinder.BindView<TileView>().ToMediator<TileMediator>();
+        mediationBinder.BindView<PlayerView>().ToMediator<PlayerMediator>();
         //
 
         // UI
