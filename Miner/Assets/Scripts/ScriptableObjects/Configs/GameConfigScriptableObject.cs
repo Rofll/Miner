@@ -18,15 +18,24 @@ public class GameConfigScriptableObject : ScriptableObject
     [Header("Seed")]
 
     [SerializeField]
-    private int seed;
+    private uint seed;
 
-    public Vector2 WorldSize
+    [Header("Render")]
+    [SerializeField]
+    private uint renderWidth;
+
+    public Vector2Int WorldSize
     {
-        get { return new Vector2(X,Y); }
+        get { return new Vector2Int(X, Y); }
     }
 
-    public int Seed
+    public uint Seed
     {
         get { return seed; }
+    }
+
+    public uint RenderWidth
+    {
+        get { return renderWidth; }
     }
 }

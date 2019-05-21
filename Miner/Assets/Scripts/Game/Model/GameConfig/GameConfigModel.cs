@@ -2,24 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameConfigModel
+public class GameConfigModel : IGameConfig
 {
-    private Vector2 worldSize;
-    private int seed;
+    private Vector2Int worldSize;
+    private uint seed;
+    private uint renderWidth;
 
-    public Vector2 WorldSize
+    public Vector2Int WorldSize
     {
         get { return worldSize; }
     }
 
-    public int Seed
+    public uint Seed
     {
         get { return seed; }
     }
 
-    public void Init(Vector2 worldSize, int seed)
+    public uint RenderWidth
+    {
+        get { return renderWidth; }
+    }
+
+    public void Init(Vector2Int worldSize, uint seed, uint renderWidth)
     {
         this.worldSize = worldSize;
         this.seed = seed;
+        this.renderWidth = renderWidth;
     }
 }

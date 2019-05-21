@@ -29,8 +29,10 @@ public class MainContextRoot : MVCSContext
         injectionBinder.Unbind<ICommandBinder>(); //Unbind to avoid a conflict!
 	    injectionBinder.Bind<ICommandBinder>().To<EventCommandBinder>().ToSingleton();
 
-	    
-    }
+	    injectionBinder.Bind<IGameConfig>().To<GameConfigModel>().ToSingleton();
+
+
+	}
 
 	// Commands and Bindings
     protected override void mapBindings()
@@ -45,10 +47,10 @@ public class MainContextRoot : MVCSContext
 #elif UNITY_ANDROID
 #elif UNITY_EDITOR
 #endif
+            .To<CameraMainAddCommand>()
+            .To<ConfigGameLoadCommand>()
+            .To<PlayerCreationCommand>()
             .To<RetainOneFrameCommand>()
-            .To<MainCameraAddCommand>()
-            //.To<TileConcreteCreateCommand>()
-            .To<TileRandomCreateCommand>()
             .To<WorldCreationCommand>()
             .Pooled()
             .InSequence()
@@ -61,6 +63,8 @@ public class MainContextRoot : MVCSContext
         // Game
         mediationBinder.BindView<TileView>().ToMediator<TileMediator>();
         mediationBinder.BindView<PlayerView>().ToMediator<PlayerMediator>();
+
+        commandBinder.Bind(RootEvents.E_PlayerCreate).To<PlayerCreationCommand>();
         //
 
         // UI

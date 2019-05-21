@@ -1,10 +1,4 @@
-﻿/*
- * @ name: BaseCommand for Strange IOC
- * @ author: Andrey Sidorov ( Sky-Fox ) https://linkedin.com/in/skyfox
- * @ All rights reserved / Todos los derechos reservados / Âñå ïðàâà ñîõðàíåíû
-*/
-
-using System;
+﻿using System;
 using UnityEngine;
 using System.Collections;
 using System.Reflection;
@@ -26,6 +20,9 @@ public class BaseCommand : EventCommand
 
     [Inject]
     public ICoroutineWorker CoroutineWorker { get; set; }
+
+    [Inject]
+    public IGameConfig GameConfig { get; set; }
 
     public override void Execute()
     {

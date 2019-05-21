@@ -5,22 +5,27 @@ using UnityEngine;
 
 public class WorldCreationCommand : BaseCommand
 {
+    Vector2Int playerPosition;
+
     public override void Execute()
     {
-        Debug.LogError("WorldRender");
+        Action<Vector2Int> callBack = GetPlayerPosition;
 
-        int seed = 12;
-        Vector2Int world = new Vector2Int(10,10);
-        int renderWidth = 1;
-
-        Vector2Int playerPos = new Vector2Int(9,9);
+        dispatcher.Dispatch(RootEvents.E_GetPlayerPosition, callBack);
 
         //bool isWorldUpsideDown = false;
 
-        BuildWorldPart(playerPos, world, renderWidth);
+        //BuildWorldPart(playerPosition, world, renderWidth);
     }
 
-    private void BuildWorldPart(Vector2Int playerPos, Vector2Int world, int renderWidth)
+    private void GetPlayerPosition(Vector2Int playerPosition)
+    {
+        this.playerPosition = playerPosition;
+
+        BuildWorldPart(playerPosition, GameConfig.WorldSize, (int)GameConfig.RenderWidth, GameConfig.Seed);
+    }
+
+    private void BuildWorldPart(Vector2Int playerPos, Vector2Int world, int renderWidth, uint seed)
     {
         //int countY = 0;
         //int countX = 0;

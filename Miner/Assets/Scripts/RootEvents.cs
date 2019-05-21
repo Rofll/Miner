@@ -11,8 +11,11 @@ public enum RootEvents
     E_AppStartDebug,
     //
 
+    // Game
+    E_PlayerCreate,
+    E_GetPlayerPosition,
     E_TileCreateSpecific,
-
+    //
 
 
     E_End,

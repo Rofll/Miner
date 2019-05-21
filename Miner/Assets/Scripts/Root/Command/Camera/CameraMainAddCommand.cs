@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainCameraAddCommand : BaseCommand
+public class CameraMainAddCommand : BaseCommand
 {
     private const string RESOURCE_PATH = "Prefabs/Root/";
-    private const string OBJECT_NAME = "MainCamera";
+    private const string OBJECT_NAME = "CameraMain";
 
     public override void Execute()
     {
@@ -24,7 +24,7 @@ public class MainCameraAddCommand : BaseCommand
 
         else
         {
-            Debug.LogError("MainCamera == NULL");
+            Debug.LogError(OBJECT_NAME + " == NULL");
         }
     }
 }

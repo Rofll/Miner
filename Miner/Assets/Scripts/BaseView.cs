@@ -14,6 +14,9 @@ public abstract class BaseView : View
     [Inject]
     public ICoroutineWorker CoroutineWorker { get; set; }
 
+    [Inject]
+    public IGameConfig GameConfig { get; set; }
+
     public abstract void OnRegister();
     public abstract void OnRemove();
 
