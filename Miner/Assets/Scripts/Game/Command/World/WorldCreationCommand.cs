@@ -10,15 +10,28 @@ public class WorldCreationCommand : BaseCommand
         Debug.LogError("WorldRender");
 
         int seed = 12;
-        Vector2Int world = new Vector2Int(5,5);
+        Vector2Int world = new Vector2Int(10,10);
         int renderWidth = 1;
 
-        Vector2Int playerPos = new Vector2Int(0,0);
+        Vector2Int playerPos = new Vector2Int(9,9);
 
         //bool isWorldUpsideDown = false;
 
+        BuildWorldPart(playerPos, world, renderWidth);
+    }
+
+    private void BuildWorldPart(Vector2Int playerPos, Vector2Int world, int renderWidth)
+    {
+        //int countY = 0;
+        //int countX = 0;
+
+        int worldHalfX = world.x / 2;
+
         for (int i = playerPos.y - renderWidth; i <= playerPos.y + renderWidth; i++)
         {
+            //countY++;
+            //countX = 0;
+
             int posY;
 
             if (i < 0)
@@ -26,9 +39,9 @@ public class WorldCreationCommand : BaseCommand
                 posY = -i - 1;
             }
 
-            else if (i > world.y)
+            else if (i > world.y - 1)
             {
-                posY = world.y - i + 1;
+                posY = (world.y - 1) - (i - world.y);
             }
 
             else
@@ -38,44 +51,127 @@ public class WorldCreationCommand : BaseCommand
 
             for (int j = playerPos.x - renderWidth; j <= playerPos.x + renderWidth; j++)
             {
+                //countX++;
+
                 int posX;
 
-                if (j < 0)
+                if (i < 0)
                 {
-                    if (i < 0)
+                    if (j < worldHalfX)
                     {
-                        posX = world.x / 2 - i + 1;
+                        posX = worldHalfX + j;
+
+                        //Debug.LogError("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+
+                        //Debug.LogError("CountY: " + countY.ToString() + " CountX: " + countX.ToString());
+
+                        //Debug.LogError("Current i: " + i.ToString());
+                        //Debug.LogError("Current j: " + j.ToString());
+
+                        //Debug.LogError("Current PosX: " + posX.ToString());
+                        //Debug.LogError("Current PosY: " + posY.ToString());
                     }
 
                     else
                     {
-                        posX = world.x + j + 1;
+                        posX = j - worldHalfX;
+
+                        //Debug.LogError("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+
+                        //Debug.LogError("CountY: " + countY.ToString() + " CountX: " + countX.ToString());
+
+                        //Debug.LogError("Current i: " + i.ToString());
+                        //Debug.LogError("Current j: " + j.ToString());
+
+                        //Debug.LogError("Current PosX: " + posX.ToString());
+                        //Debug.LogError("Current PosY: " + posY.ToString());
                     }
                 }
 
-                else if (j > world.x)
+                else if (i > world.y - 1)
                 {
-                    posX = j % world.x - 1;
+
+                    if (j > worldHalfX)
+                    {
+                        posX = j - worldHalfX;
+
+                        //Debug.LogError("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+
+                        //Debug.LogError("CountY: " + countY.ToString() + " CountX: " + countX.ToString());
+
+                        //Debug.LogError("Current i: " + i.ToString());
+                        //Debug.LogError("Current j: " + j.ToString());
+
+                        //Debug.LogError("Current PosX: " + posX.ToString());
+                        //Debug.LogError("Current PosY: " + posY.ToString());
+                    }
+
+                    else
+                    {
+                        posX = worldHalfX + j;
+
+                        //Debug.LogError("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+
+                        //Debug.LogError("CountY: " + countY.ToString() + " CountX: " + countX.ToString());
+
+                        //Debug.LogError("Current i: " + i.ToString());
+                        //Debug.LogError("Current j: " + j.ToString());
+
+                        //Debug.LogError("Current PosX: " + posX.ToString());
+                        //Debug.LogError("Current PosY: " + posY.ToString());
+                    }
+                }
+
+                else if (j > world.x - 1)
+                {
+                    posX = j % world.x;
+
+                    //Debug.LogError("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+
+                    //Debug.LogError("CountY: " + countY.ToString() + " CountX: " + countX.ToString());
+
+                    //Debug.LogError("Current i: " + i.ToString());
+                    //Debug.LogError("Current j: " + j.ToString());
+
+                    //Debug.LogError("Current PosX: " + posX.ToString());
+                    //Debug.LogError("Current PosY: " + posY.ToString());
+                }
+
+                else if (j < 0)
+                {
+                    posX = world.x + j;
+
+                    //Debug.LogError("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+
+                    //Debug.LogError("CountY: " + countY.ToString() + " CountX: " + countX.ToString());
+
+                    //Debug.LogError("Current i: " + i.ToString());
+                    //Debug.LogError("Current j: " + j.ToString());
+
+                    //Debug.LogError("Current PosX: " + posX.ToString());
+                    //Debug.LogError("Current PosY: " + posY.ToString());
                 }
 
                 else
                 {
                     posX = j;
+
+                    //Debug.LogError("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+
+                    //Debug.LogError("CountY: " + countY.ToString() + " CountX: " + countX.ToString());
+
+                    //Debug.LogError("Current i: " + i.ToString());
+                    //Debug.LogError("Current j: " + j.ToString());
+
+                    //Debug.LogError("Current PosX: " + posX.ToString());
+                    //Debug.LogError("Current PosY: " + posY.ToString());
                 }
 
                 if (!(posY == playerPos.y && posX == playerPos.x))
                 {
-                   Debug.LogError(String.Format("Pos:[{0}][{1}]", posX, posY));
+                    Debug.LogError(String.Format("Pos:[{0}][{1}]", posX, posY));
                 }
             }
-        }
-    }
-
-    private void BuildWorldPart(int renderWidth)
-    {
-        for (int i = 0; i < renderWidth; i++)
-        {
-            
         }
     }
 }
