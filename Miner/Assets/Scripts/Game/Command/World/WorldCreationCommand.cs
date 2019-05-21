@@ -11,7 +11,7 @@ public class WorldCreationCommand : BaseCommand
     {
         Action<Vector2Int> callBack = GetPlayerPosition;
 
-        dispatcher.Dispatch(RootEvents.E_GetPlayerPosition, callBack);
+        dispatcher.Dispatch(RootEvents.E_PlayerPositionGet, callBack);
 
         //bool isWorldUpsideDown = false;
 
@@ -22,7 +22,7 @@ public class WorldCreationCommand : BaseCommand
     {
         this.playerPosition = playerPosition;
 
-        BuildWorldPart(playerPosition, GameConfig.WorldSize, (int)GameConfig.RenderWidth, GameConfig.Seed);
+        BuildWorldPart(playerPosition, GameModel.WorldSize, (int)GameModel.RenderWidth, GameModel.Seed);
     }
 
     private void BuildWorldPart(Vector2Int playerPos, Vector2Int world, int renderWidth, uint seed)
@@ -175,6 +175,7 @@ public class WorldCreationCommand : BaseCommand
                 if (!(posY == playerPos.y && posX == playerPos.x))
                 {
                     Debug.LogError(String.Format("Pos:[{0}][{1}]", posX, posY));
+                    dispatcher.Dispatch(RootEvents.E_TileCreateRandom);
                 }
             }
         }

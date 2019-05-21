@@ -22,7 +22,7 @@ public class BaseCommand : EventCommand
     public ICoroutineWorker CoroutineWorker { get; set; }
 
     [Inject]
-    public IGameConfig GameConfig { get; set; }
+    public IGameModel GameModel { get; set; }
 
     public override void Execute()
     {

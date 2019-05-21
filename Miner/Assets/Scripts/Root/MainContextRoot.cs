@@ -29,7 +29,7 @@ public class MainContextRoot : MVCSContext
         injectionBinder.Unbind<ICommandBinder>(); //Unbind to avoid a conflict!
 	    injectionBinder.Bind<ICommandBinder>().To<EventCommandBinder>().ToSingleton();
 
-	    injectionBinder.Bind<IGameConfig>().To<GameConfigModel>().ToSingleton();
+	    injectionBinder.Bind<IGameModel>().To<GameModel>().ToSingleton();
 
 
 	}
@@ -51,6 +51,7 @@ public class MainContextRoot : MVCSContext
             .To<ConfigGameLoadCommand>()
             .To<PlayerCreationCommand>()
             .To<RetainOneFrameCommand>()
+            .To<TileChestCreateCommand>()
             .To<WorldCreationCommand>()
             .Pooled()
             .InSequence()

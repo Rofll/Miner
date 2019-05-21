@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IGameConfig
+public interface IGameModel
 {
     Vector2Int WorldSize { get; }
 
@@ -10,5 +10,5 @@ public interface IGameConfig
 
     uint RenderWidth { get; }
 
-    void Init(Vector2Int worldSize, uint seed, uint renderWidth);
+    void Init(Vector2Int worldSize, uint seed, uint renderWidth, Dictionary<Vector2Int, TileModel> map = null);
 }

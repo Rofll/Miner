@@ -13,8 +13,11 @@ public enum RootEvents
 
     // Game
     E_PlayerCreate,
-    E_GetPlayerPosition,
+    E_PlayerPositionGet,
+    
     E_TileCreateSpecific,
+    E_TileCreateRandom,
+    E_TileHolderGet,
     //
 
 

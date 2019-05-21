@@ -9,12 +9,12 @@ public class PlayerView : BaseView
 
     public override void OnRegister()
     {
-        dispatcher.AddListener(RootEvents.E_GetPlayerPosition, GivePlayerPosition);
+        dispatcher.AddListener(RootEvents.E_PlayerPositionGet, GivePlayerPosition);
     }
 
     public override void OnRemove()
     {
-        dispatcher.RemoveListener(RootEvents.E_GetPlayerPosition, GivePlayerPosition);
+        dispatcher.RemoveListener(RootEvents.E_PlayerPositionGet, GivePlayerPosition);
     }
 
     public void Init(Vector2Int playerPosition)
@@ -31,6 +31,10 @@ public class PlayerView : BaseView
         if (callBack != null)
         {
             callBack.Invoke(playerPosition);
+        }
+        else
+        {
+            Debug.LogError("CallBack == NULL");
         }
     }
 

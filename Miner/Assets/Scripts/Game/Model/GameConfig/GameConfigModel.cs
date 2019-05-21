@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameConfigModel : IGameConfig
+public class GameModel : IGameModel
 {
     private Vector2Int worldSize;
     private uint seed;
     private uint renderWidth;
+    private Dictionary<Vector2Int, TileModel> map;
 
     public Vector2Int WorldSize
     {
@@ -23,10 +24,25 @@ public class GameConfigModel : IGameConfig
         get { return renderWidth; }
     }
 
-    public void Init(Vector2Int worldSize, uint seed, uint renderWidth)
+    public Dictionary<Vector2Int, TileModel> Map
+    {
+        get { return map; }
+    }
+
+    public void Init(Vector2Int worldSize, uint seed, uint renderWidth, Dictionary<Vector2Int, TileModel> map = null)
     {
         this.worldSize = worldSize;
         this.seed = seed;
         this.renderWidth = renderWidth;
+
+        if (map == null)
+        {
+            this.map = new Dictionary<Vector2Int, TileModel>();
+        }
+
+        else
+        {
+            this.map = map;
+        }
     }
 }
