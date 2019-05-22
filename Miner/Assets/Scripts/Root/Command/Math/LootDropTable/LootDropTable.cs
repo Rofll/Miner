@@ -12,7 +12,7 @@ public class LootDropTable <TObjectModel, TObjectTypeEnum> where TObjectModel: O
 
     List<TObjectModel> objectsModel = new List<TObjectModel>();
 
-    private TObjectTypeEnum objectTypeEnum;
+    private TObjectTypeEnum objectTypeEnumNull;
 
     Dictionary<TObjectTypeEnum, double> chances = new Dictionary<TObjectTypeEnum, double>();
     Dictionary<TObjectTypeEnum, double> weights = new Dictionary<TObjectTypeEnum, double>();
@@ -21,7 +21,7 @@ public class LootDropTable <TObjectModel, TObjectTypeEnum> where TObjectModel: O
 
     public List<TObjectModel> GetLoot(List<BucketObjectModel<TObjectTypeEnum>> lootObjects, uint minDrop, uint maxDrop, bool isWithoutReplacement = true)
     {
-        objectTypeEnum = (TObjectTypeEnum)System.Enum.Parse(typeof(TObjectTypeEnum), "Null");
+        objectTypeEnumNull = (TObjectTypeEnum)System.Enum.Parse(typeof(TObjectTypeEnum), "Null");
 
         for (int i = 0; i < maxDrop; i++)
         {
@@ -30,13 +30,13 @@ public class LootDropTable <TObjectModel, TObjectTypeEnum> where TObjectModel: O
             if (i == minDrop)
             {
                 totalWeight += nullebleWeight;
-                weights.Add(objectTypeEnum, nullebleWeight);
+                weights.Add(objectTypeEnumNull, nullebleWeight);
             }
 
             else if (i > minDrop)
             {
                 totalWeight += nullebleWeight;
-                weights[objectTypeEnum] = nullebleWeight;
+                weights[objectTypeEnumNull] = nullebleWeight;
             }
 
             CalculateChance();
@@ -46,7 +46,6 @@ public class LootDropTable <TObjectModel, TObjectTypeEnum> where TObjectModel: O
 
             GetResource(random, lootObjects, isWithoutReplacement);
         }
-
         return objectsModel;
     }
 
@@ -57,7 +56,7 @@ public class LootDropTable <TObjectModel, TObjectTypeEnum> where TObjectModel: O
 
         foreach (BucketObjectModel<TObjectTypeEnum> lootObject in lootObjects)
         {
-            if (!lootObject.Item.Equals(objectTypeEnum))
+            if (!lootObject.Item.Equals(objectTypeEnumNull))
             {
                 totalWeight += lootObject.Weight * lootObject.Count;
 
@@ -138,17 +137,12 @@ public class LootDropTable <TObjectModel, TObjectTypeEnum> where TObjectModel: O
         {
             if (random > chanceRange.Value.Min && random < chanceRange.Value.Max)
             {
-                if (!chanceRange.Key.Equals(objectTypeEnum))
+                if (!chanceRange.Key.Equals(objectTypeEnumNull))
                 {
                     bool isResourceModelContain = false;
 
                     foreach (ObjectModel<TObjectTypeEnum> objectModel in objectsModel)
                     {
-                        //UnityEngine.Debug.LogError("+++++++++++++++++++++++++++++++++++++");
-
-                        //UnityEngine.Debug.LogError(objectModel.ObjectType);
-                        //UnityEngine.Debug.LogError(chanceRange.Key);
-
                         if (objectModel.ObjectType.Equals(chanceRange.Key))
                         {
                             objectModel.AddObject(1);
@@ -179,8 +173,6 @@ public class LootDropTable <TObjectModel, TObjectTypeEnum> where TObjectModel: O
                             break;
                         }
                     }
-
-                    //DeleteItemFromBucket(lootObjects, chanceRange);
                 }
 
                 break;

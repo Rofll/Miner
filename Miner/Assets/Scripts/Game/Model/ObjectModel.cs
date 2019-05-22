@@ -2,16 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class ObjectModel<TObjectTypeEnum> where TObjectTypeEnum: System.Enum  //IObjectModel<TObjectTypeEnum>
+public class ObjectModel<TObjectTypeEnum> where TObjectTypeEnum: System.Enum  //IObjectModel<TObjectTypeEnum>
 {
 
     protected TObjectTypeEnum objectType;
     protected int count;
 
 
-    public TObjectTypeEnum ObjectType { get; }
+    public TObjectTypeEnum ObjectType
+    {
+        get { return objectType; }
+    }
 
-    public int ObjectCount { get; }
+    public int ObjectCount
+    {
+        get { return count; }
+    }
 
-    public abstract void AddObject(int count);
+    public void AddObject(int count)
+    {
+        this.count += count;
+    }
 }
