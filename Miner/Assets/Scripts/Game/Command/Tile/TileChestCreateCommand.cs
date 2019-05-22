@@ -10,6 +10,8 @@ public class TileChestCreateCommand : BaseCommand
 
         chestResource.Add(new ResourceModel(ResourceTypesEnum.Chest, 1));
 
+
+
         //TileModel chestTile = new TileModel(chestResource,,);
 
         //GameModel.AddTileToMap()

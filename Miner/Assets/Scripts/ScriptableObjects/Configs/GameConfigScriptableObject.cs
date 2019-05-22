@@ -20,9 +20,16 @@ public class GameConfigScriptableObject : ScriptableObject
     [SerializeField]
     private uint seed;
 
-    [Header("Render")]
+    [Header("WorldSawRadius")]
     [SerializeField]
-    private uint renderWidth;
+    private uint playerWidth;
+    [SerializeField]
+    private uint radarWidth;
+
+    [Header("Tiles")]
+    [SerializeField]
+    private List<TileCreateModel> tiles = new List<TileCreateModel>();
+
 
     public Vector2Int WorldSize
     {
@@ -36,6 +43,11 @@ public class GameConfigScriptableObject : ScriptableObject
 
     public uint RenderWidth
     {
-        get { return renderWidth; }
+        get { return playerWidth; }
+    }
+
+    public List<TileCreateModel> Tiles
+    {
+        get { return tiles; }
     }
 }

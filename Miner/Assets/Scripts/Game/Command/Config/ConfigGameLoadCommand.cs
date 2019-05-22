@@ -13,7 +13,7 @@ public class ConfigGameLoadCommand : BaseCommand
 
         if (gameConfig != null)
         {
-            GameModel.Init(gameConfig.WorldSize, gameConfig.Seed, gameConfig.RenderWidth);
+            GameModel.Init(gameConfig.WorldSize, gameConfig.Seed, gameConfig.RenderWidth, gameConfig.Tiles);
             Resources.UnloadUnusedAssets();
         }
 

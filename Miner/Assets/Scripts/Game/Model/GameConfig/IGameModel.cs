@@ -10,5 +10,7 @@ public interface IGameModel
 
     uint RenderWidth { get; }
 
-    void Init(Vector2Int worldSize, uint seed, uint renderWidth, Dictionary<Vector2Int, TileModel> map = null);
+    List<TileCreateModel> Tiles { get; }
+
+    void Init(Vector2Int worldSize, uint seed, uint renderWidth, List<TileCreateModel> tiles, Dictionary<Vector2Int, TileModel> map = null);
 }

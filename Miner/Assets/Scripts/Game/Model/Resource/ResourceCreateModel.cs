@@ -3,29 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class TileCreateModel
+public class ResourceCreateModel
 {
-    public TileCreateModel()
+    public ResourceCreateModel()
     {
 
     }
 
-    public TileCreateModel(TileTypesEnum type, List<ResourceCreateModel> resources, float weight)
+    public ResourceCreateModel(ResourceTypesEnum type, float weight, int count)
     {
         this.type = type;
-        this.resources = resources;
         this.weight = weight;
+        this.count = count;
     }
 
     [SerializeField]
-    private TileTypesEnum type;
+    private ResourceTypesEnum type;
+
     [SerializeField]
     [Range(0,float.MaxValue)]
     private float weight;
-    [SerializeField]
-    private List<ResourceCreateModel> resources;
 
-    public TileTypesEnum Type
+    [SerializeField]
+    [Range(0, 100000)]
+    private int count;
+
+    public ResourceTypesEnum Type
     {
         get { return type; }
     }
@@ -34,9 +37,9 @@ public class TileCreateModel
     {
         get { return weight; }
     }
-    
-    public List<ResourceCreateModel> Resources
+
+    public int Count
     {
-        get { return resources; }
+        get { return count; }
     }
 }

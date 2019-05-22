@@ -12,20 +12,29 @@ public class TileRandomCreateCommand : BaseCommand
 
     private void CreateRandomTile()
     {
-        LootDropTable<ResourceModel, ResourceTypesEnum> lootDropTable = new LootDropTable<ResourceModel, ResourceTypesEnum>();
+        LootDropTable<TileModel, TileTypesEnum> lootDropTable = new LootDropTable<TileModel, TileTypesEnum>();
 
-        List<BucketObjectModel<ResourceTypesEnum>> lootObjectModel = new List<BucketObjectModel<ResourceTypesEnum>>();
+        List<BucketObjectModel<TileTypesEnum>> lootObjectModel = new List<BucketObjectModel<TileTypesEnum>>();
 
-        lootObjectModel.Add(new BucketObjectModel<ResourceTypesEnum>(ResourceTypesEnum.Core, 80, 3));
-        lootObjectModel.Add(new BucketObjectModel<ResourceTypesEnum>(ResourceTypesEnum.Crystal, 20, 3));
-        lootObjectModel.Add(new BucketObjectModel<ResourceTypesEnum>(ResourceTypesEnum.Gold, 10, 3));
-        lootObjectModel.Add(new BucketObjectModel<ResourceTypesEnum>(ResourceTypesEnum.Null, 20, 3));
+        //foreach (var VARIABLE in COLLECTION)
+        //{
+        //    lootObjectModel.Add();
+        //}
 
-        List<ResourceModel> tileResources = lootDropTable.GetLoot(lootObjectModel, 100, 100, true);
+        //LootDropTable<ResourceModel, ResourceTypesEnum> lootDropTable = new LootDropTable<ResourceModel, ResourceTypesEnum>();
 
-        foreach (ResourceModel tileResource in tileResources)
-        {
-            Debug.LogError(tileResource.ToString());
-        }
+        //List<BucketObjectModel<ResourceTypesEnum>> lootObjectModel = new List<BucketObjectModel<ResourceTypesEnum>>();
+
+        //lootObjectModel.Add(new BucketObjectModel<ResourceTypesEnum>(ResourceTypesEnum.Core, 80, 3));
+        //lootObjectModel.Add(new BucketObjectModel<ResourceTypesEnum>(ResourceTypesEnum.Crystal, 20, 3));
+        //lootObjectModel.Add(new BucketObjectModel<ResourceTypesEnum>(ResourceTypesEnum.Gold, 10, 3));
+        //lootObjectModel.Add(new BucketObjectModel<ResourceTypesEnum>(ResourceTypesEnum.Null, 20, 3));
+
+        //List<ResourceModel> tileResources = lootDropTable.GetLoot(lootObjectModel, 100, 100, true);
+
+        //foreach (ResourceModel tileResource in tileResources)
+        //{
+        //    Debug.LogError(tileResource.ToString());
+        //}
     }
 }

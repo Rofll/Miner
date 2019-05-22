@@ -7,8 +7,8 @@ using Random = UnityEngine.Random;
 
 public class LootDropTable <TObjectModel, TObjectTypeEnum> where TObjectModel: ObjectModel<TObjectTypeEnum>  where TObjectTypeEnum: System.Enum 
 {
-    double totalWeight = 0;
-    double nullebleWeight = 0;
+    float totalWeight = 0;
+    float nullebleWeight = 0;
 
     List<TObjectModel> objectsModel = new List<TObjectModel>();
 

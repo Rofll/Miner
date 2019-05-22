@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BucketObjectModel <TObjectType> where TObjectType : System.Enum
 {
-    public BucketObjectModel(TObjectType item, double weight, int count)
+    public BucketObjectModel(TObjectType item, float weight, int count)
     {
         this.item = item;
         this.weight = weight;
@@ -13,7 +13,7 @@ public class BucketObjectModel <TObjectType> where TObjectType : System.Enum
     }
 
     private readonly TObjectType item;
-    private readonly double weight;
+    private readonly float weight;
     private int count;
 
     public TObjectType Item
@@ -21,7 +21,7 @@ public class BucketObjectModel <TObjectType> where TObjectType : System.Enum
         get { return item; }
     }
 
-    public double Weight
+    public float Weight
     {
         get { return weight; }
     }

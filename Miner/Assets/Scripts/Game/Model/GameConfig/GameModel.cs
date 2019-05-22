@@ -8,6 +8,8 @@ public class GameModel : IGameModel
     private uint seed;
     private uint renderWidth;
     private Dictionary<Vector2Int, TileModel> map;
+    private List<TileCreateModel> tiles;
+
 
     public Vector2Int WorldSize
     {
@@ -29,11 +31,17 @@ public class GameModel : IGameModel
         get { return map; }
     }
 
-    public void Init(Vector2Int worldSize, uint seed, uint renderWidth, Dictionary<Vector2Int, TileModel> map = null)
+    public List<TileCreateModel> Tiles
+    {
+        get { return tiles; }
+    }
+
+    public void Init(Vector2Int worldSize, uint seed, uint renderWidth, List<TileCreateModel> tiles, Dictionary<Vector2Int, TileModel> map = null)
     {
         this.worldSize = worldSize;
         this.seed = seed;
         this.renderWidth = renderWidth;
+        this.tiles = tiles;
 
         if (map == null)
         {
