@@ -159,20 +159,7 @@ public class LootDropTable <TObjectModel, TObjectTypeEnum> where TObjectModel: O
 
                 if (isWithoutReplacement)
                 {
-                    foreach (BucketObjectModel<TObjectTypeEnum> lootObject in lootObjects)
-                    {
-                        if (lootObject.Item.Equals(chanceRange.Key))
-                        {
-                            lootObject.DecreaseCount(1);
-
-                            if (lootObject.Count <= 0)
-                            {
-                                ClearLists(lootObjects, lootObject);
-                            }
-
-                            break;
-                        }
-                    }
+                    DeleteItemFromBucket(lootObjects, chanceRange);
                 }
 
                 break;
