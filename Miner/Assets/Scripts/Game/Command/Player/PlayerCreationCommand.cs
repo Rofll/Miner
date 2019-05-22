@@ -31,11 +31,16 @@ public class PlayerCreationCommand : BaseCommand
 
                 clone.transform.position = playerPosition;
             }
+
+            else
+            {
+                Debug.LogError(OBJECT_NAME + " == NULL");
+            }
         }
 
         else
         {
-            Debug.LogError(OBJECT_NAME + " == NULL");
+            Debug.LogError(OBJECT_NAME + " == Already Exists");
         }
     }
 }

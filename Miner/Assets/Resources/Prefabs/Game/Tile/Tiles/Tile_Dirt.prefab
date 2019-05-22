@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5082146623506338617}
   - component: {fileID: 311039804550309714}
   m_Layer: 0
-  m_Name: Tile
+  m_Name: Tile_Dirt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f985e75303b28243b2910e9e5de63e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  renderer: {fileID: 7500121820876294}
 --- !u!1 &4510079627770890742
 GameObject:
   m_ObjectHideFlags: 0
