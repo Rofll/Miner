@@ -12,5 +12,7 @@ public enum TileTypesEnum
     Obsidian,
     Water,
 
+    Null,
+
     End
 }

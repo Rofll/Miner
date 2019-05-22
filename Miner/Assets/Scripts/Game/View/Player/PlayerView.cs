@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerView : BaseView
 {
-    private Vector2Int playerPosition;
+    private Vector2 playerPosition;
 
     public override void OnRegister()
     {
@@ -17,16 +17,17 @@ public class PlayerView : BaseView
         dispatcher.RemoveListener(RootEvents.E_PlayerPositionGet, GivePlayerPosition);
     }
 
-    public void Init(Vector2Int playerPosition)
+    public void UpdatePosition(Vector2 playerPosition)
     {
         this.playerPosition = playerPosition;
+        gameObject.transform.position = playerPosition;
     }
 
     private void GivePlayerPosition(strange.extensions.dispatcher.eventdispatcher.api.IEvent data)
     {
         Debug.LogError("YEP");
 
-        Action<Vector2Int> callBack = data.data as Action<Vector2Int>;
+        Action<Vector2> callBack = data.data as Action<Vector2>;
 
         if (callBack != null)
         {

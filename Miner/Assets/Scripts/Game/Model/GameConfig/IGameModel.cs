@@ -6,11 +6,15 @@ public interface IGameModel
 {
     Vector2Int WorldSize { get; }
 
+    Dictionary<Vector2, TileModel> Map { get; }
+
     uint Seed { get; }
 
     uint RenderWidth { get; }
 
     List<TileCreateModel> Tiles { get; }
 
-    void Init(Vector2Int worldSize, uint seed, uint renderWidth, List<TileCreateModel> tiles, Dictionary<Vector2Int, TileModel> map = null);
+    void Init(Vector2Int worldSize, uint seed, uint renderWidth, List<TileCreateModel> tiles, Dictionary<Vector2, TileModel> map = null);
+
+    void TileAddToMap(TileModel tile);
 }

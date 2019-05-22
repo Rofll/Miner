@@ -15,4 +15,27 @@ MonoBehaviour:
   X: 87
   Y: 2123
   seed: 456456
-  renderWidth: 1
+  playerWidth: 1
+  radarWidth: 1
+  tiles:
+  - type: 0
+    weight: 100
+    resources:
+    - type: 0
+      weight: 150
+      count: 20
+    - type: 5
+      weight: 100
+      count: 10
+  - type: 1
+    weight: 150
+    resources:
+    - type: 0
+      weight: 150
+      count: 20
+    - type: 2
+      weight: 50
+      count: 5
+    - type: 5
+      weight: 100
+      count: 10

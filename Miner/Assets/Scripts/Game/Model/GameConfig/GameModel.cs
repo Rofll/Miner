@@ -7,7 +7,7 @@ public class GameModel : IGameModel
     private Vector2Int worldSize;
     private uint seed;
     private uint renderWidth;
-    private Dictionary<Vector2Int, TileModel> map;
+    private Dictionary<Vector2, TileModel> map;
     private List<TileCreateModel> tiles;
 
 
@@ -26,7 +26,7 @@ public class GameModel : IGameModel
         get { return renderWidth; }
     }
 
-    public Dictionary<Vector2Int, TileModel> Map
+    public Dictionary<Vector2, TileModel> Map
     {
         get { return map; }
     }
@@ -36,7 +36,7 @@ public class GameModel : IGameModel
         get { return tiles; }
     }
 
-    public void Init(Vector2Int worldSize, uint seed, uint renderWidth, List<TileCreateModel> tiles, Dictionary<Vector2Int, TileModel> map = null)
+    public void Init(Vector2Int worldSize, uint seed, uint renderWidth, List<TileCreateModel> tiles, Dictionary<Vector2, TileModel> map = null)
     {
         this.worldSize = worldSize;
         this.seed = seed;
@@ -45,12 +45,17 @@ public class GameModel : IGameModel
 
         if (map == null)
         {
-            this.map = new Dictionary<Vector2Int, TileModel>();
+            this.map = new Dictionary<Vector2, TileModel>();
         }
 
         else
         {
             this.map = map;
         }
+    }
+
+    public void TileAddToMap(TileModel tile)
+    {
+        map.Add(tile.Position, tile);
     }
 }

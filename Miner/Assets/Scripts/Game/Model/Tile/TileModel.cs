@@ -4,7 +4,20 @@ using UnityEngine;
 
 public class TileModel : ObjectModel<TileTypesEnum>
 {
-    public TileModel(List<ResourceModel> resources, TileTypesEnum tileType, Vector2 position)
+    public TileModel(TileTypesEnum tileType, int count = 1)
+    {
+        this.objectType = tileType;
+        this.count = 1;
+    }
+
+    public TileModel(List<ResourceModel> resources, TileTypesEnum tileType, int count = 1)
+    {
+        this.resources = resources;
+        this.objectType = tileType;
+        this.count = 1;
+    }
+
+    public TileModel(List<ResourceModel> resources, TileTypesEnum tileType, Vector2 position, int count = 1)
     {
         this.resources = resources;
         this.objectType = tileType;
@@ -12,8 +25,8 @@ public class TileModel : ObjectModel<TileTypesEnum>
         this.count = 1;
     }
 
-    private readonly List<ResourceModel> resources;
-    private readonly Vector2 position;
+    private List<ResourceModel> resources;
+    private Vector2 position;
 
     public List<ResourceModel> Resources
     {
@@ -28,5 +41,15 @@ public class TileModel : ObjectModel<TileTypesEnum>
     public Vector2 Position
     {
         get { return position; }
+    }
+
+    public void InitPosition(Vector2 position)
+    {
+        this.position = position;
+    }
+
+    public void FillResources(List<ResourceModel> resources)
+    {
+        this.resources = resources;
     }
 }

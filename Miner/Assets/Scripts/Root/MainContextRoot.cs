@@ -52,8 +52,8 @@ public class MainContextRoot : MVCSContext
             .To<PlayerCreationCommand>()
             .To<RetainOneFrameCommand>()
             .To<TileChestCreateCommand>()
-            .To<WorldCreationCommand>()
-            .To<TileRandomCreateCommand>()
+            //.To<WorldCreationCommand>()
+            //.To<TileRandomCreateCommand>()
             .Pooled()
             .InSequence()
             .Once();
@@ -66,7 +66,9 @@ public class MainContextRoot : MVCSContext
         mediationBinder.BindView<TileView>().ToMediator<TileMediator>();
         mediationBinder.BindView<PlayerView>().ToMediator<PlayerMediator>();
 
-        commandBinder.Bind(RootEvents.E_PlayerCreate).To<PlayerCreationCommand>();
+        commandBinder.Bind(RootEvents.E_PlayerCreate).To<PlayerCreationCommand>().Pooled();
+
+        commandBinder.Bind(RootEvents.E_TileCreateRandom).To<TileRandomCreateCommand>().Pooled();
         //
 
         // UI

@@ -7,34 +7,41 @@ public class TileRandomCreateCommand : BaseCommand
 {
     public override void Execute()
     {
-        CreateRandomTile();
+        Action<TileModel> tileCallBack = eventData.data as Action<TileModel>;
+
+        if (tileCallBack != null)
+        {
+            CreateRandomTile(tileCallBack);
+        }
+        else
+        {
+            Debug.LogError("TileModel == NULL");
+        }
+
     }
 
-    private void CreateRandomTile()
+    private void CreateRandomTile(Action<TileModel> callback)
     {
         LootDropTable<TileModel, TileTypesEnum> lootDropTable = new LootDropTable<TileModel, TileTypesEnum>();
 
         List<BucketObjectModel<TileTypesEnum>> lootObjectModel = new List<BucketObjectModel<TileTypesEnum>>();
 
-        //foreach (var VARIABLE in COLLECTION)
-        //{
-        //    lootObjectModel.Add();
-        //}
+        foreach (TileCreateModel tileCreateModel in GameModel.Tiles)
+        {
+            BucketObjectModel<TileTypesEnum> bucketObject = new BucketObjectModel<TileTypesEnum>(tileCreateModel.Type, tileCreateModel.Weight, 1);
+            lootObjectModel.Add(bucketObject);
+        }
 
-        //LootDropTable<ResourceModel, ResourceTypesEnum> lootDropTable = new LootDropTable<ResourceModel, ResourceTypesEnum>();
+        List<TileModel> tileModels = lootDropTable.GetLoot(lootObjectModel, 1, 1);
 
-        //List<BucketObjectModel<ResourceTypesEnum>> lootObjectModel = new List<BucketObjectModel<ResourceTypesEnum>>();
-
-        //lootObjectModel.Add(new BucketObjectModel<ResourceTypesEnum>(ResourceTypesEnum.Core, 80, 3));
-        //lootObjectModel.Add(new BucketObjectModel<ResourceTypesEnum>(ResourceTypesEnum.Crystal, 20, 3));
-        //lootObjectModel.Add(new BucketObjectModel<ResourceTypesEnum>(ResourceTypesEnum.Gold, 10, 3));
-        //lootObjectModel.Add(new BucketObjectModel<ResourceTypesEnum>(ResourceTypesEnum.Null, 20, 3));
-
-        //List<ResourceModel> tileResources = lootDropTable.GetLoot(lootObjectModel, 100, 100, true);
-
-        //foreach (ResourceModel tileResource in tileResources)
-        //{
-        //    Debug.LogError(tileResource.ToString());
-        //}
+        if (tileModels != null && tileModels.Count > 0)
+        {
+            callback.Invoke(tileModels[0]);
+            Debug.LogError(tileModels[0].TileType);
+        }
+        else
+        {
+            Debug.LogError("Tile == NULL");
+        }
     }
 }

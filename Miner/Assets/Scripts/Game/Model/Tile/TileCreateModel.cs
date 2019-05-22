@@ -20,7 +20,7 @@ public class TileCreateModel
     [SerializeField]
     private TileTypesEnum type;
     [SerializeField]
-    [Range(0,float.MaxValue)]
+    [Range(1,float.MaxValue)]
     private float weight;
     [SerializeField]
     private List<ResourceCreateModel> resources;

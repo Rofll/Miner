@@ -21,7 +21,7 @@ public class ResourceCreateModel
     private ResourceTypesEnum type;
 
     [SerializeField]
-    [Range(0,float.MaxValue)]
+    [Range(1,float.MaxValue)]
     private float weight;
 
     [SerializeField]

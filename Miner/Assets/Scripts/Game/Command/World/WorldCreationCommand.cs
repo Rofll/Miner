@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class WorldCreationCommand : BaseCommand
 {
-    Vector2Int playerPosition;
+    Vector2 playerPosition;
 
     public override void Execute()
     {
-        Action<Vector2Int> callBack = GetPlayerPosition;
+        Action<Vector2> callBack = GetPlayerPosition;
 
         dispatcher.Dispatch(RootEvents.E_PlayerPositionGet, callBack);
 
@@ -18,21 +18,21 @@ public class WorldCreationCommand : BaseCommand
         //BuildWorldPart(playerPosition, world, renderWidth);
     }
 
-    private void GetPlayerPosition(Vector2Int playerPosition)
+    private void GetPlayerPosition(Vector2 playerPosition)
     {
         this.playerPosition = playerPosition;
 
         BuildWorldPart(playerPosition, GameModel.WorldSize, (int)GameModel.RenderWidth, GameModel.Seed);
     }
 
-    private void BuildWorldPart(Vector2Int playerPos, Vector2Int world, int renderWidth, uint seed)
+    private void BuildWorldPart(Vector2 playerPos, Vector2Int world, int renderWidth, uint seed)
     {
         //int countY = 0;
         //int countX = 0;
 
         int worldHalfX = world.x / 2;
 
-        for (int i = playerPos.y - renderWidth; i <= playerPos.y + renderWidth; i++)
+        for (int i = (int)playerPos.y - renderWidth; i <= playerPos.y + renderWidth; i++)
         {
             //countY++;
             //countX = 0;
@@ -54,7 +54,7 @@ public class WorldCreationCommand : BaseCommand
                 posY = i;
             }
 
-            for (int j = playerPos.x - renderWidth; j <= playerPos.x + renderWidth; j++)
+            for (int j = (int)playerPos.x - renderWidth; j <= playerPos.x + renderWidth; j++)
             {
                 //countX++;
 
@@ -172,7 +172,7 @@ public class WorldCreationCommand : BaseCommand
                     //Debug.LogError("Current PosY: " + posY.ToString());
                 }
 
-                if (!(posY == playerPos.y && posX == playerPos.x))
+                if (!(posY == (int)playerPos.y && posX == (int)playerPos.x))
                 {
                     Debug.LogError(String.Format("Pos:[{0}][{1}]", posX, posY));
                     dispatcher.Dispatch(RootEvents.E_TileCreateRandom);

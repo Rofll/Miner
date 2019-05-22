@@ -21,7 +21,18 @@ public class LootDropTable <TObjectModel, TObjectTypeEnum> where TObjectModel: O
 
     public List<TObjectModel> GetLoot(List<BucketObjectModel<TObjectTypeEnum>> lootObjects, uint minDrop, uint maxDrop, bool isWithoutReplacement = true)
     {
-        objectTypeEnumNull = (TObjectTypeEnum)System.Enum.Parse(typeof(TObjectTypeEnum), "Null");
+
+        try
+        {
+            objectTypeEnumNull = (TObjectTypeEnum) System.Enum.Parse(typeof(TObjectTypeEnum), "Null");
+        }
+
+        catch
+        {
+            UnityEngine.Debug.LogError("objectTypeEnumNull == NULL");
+            UnityEngine.Debug.LogError("Please add Null field to " + typeof(TObjectTypeEnum).ToString());
+            return null;
+        }
 
         for (int i = 0; i < maxDrop; i++)
         {
