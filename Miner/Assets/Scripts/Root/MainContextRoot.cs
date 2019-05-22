@@ -53,6 +53,7 @@ public class MainContextRoot : MVCSContext
             .To<RetainOneFrameCommand>()
             .To<TileChestCreateCommand>()
             .To<WorldCreationCommand>()
+            .To<TileRandomCreateCommand>()
             .Pooled()
             .InSequence()
             .Once();

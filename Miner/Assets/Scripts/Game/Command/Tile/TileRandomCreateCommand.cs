@@ -12,16 +12,16 @@ public class TileRandomCreateCommand : BaseCommand
 
     private void CreateRandomTile()
     {
-        LootDropTable lootDropTable = new LootDropTable();
+        LootDropTable<ResourceModel, ResourceTypesEnum> lootDropTable = new LootDropTable<ResourceModel, ResourceTypesEnum>();
 
-        List<LootObjectModel> lootObjectModel = new List<LootObjectModel>();
+        List<BucketObjectModel<ResourceTypesEnum>> lootObjectModel = new List<BucketObjectModel<ResourceTypesEnum>>();
 
-        lootObjectModel.Add(new LootObjectModel(ResourceTypesEnum.Core, 80, 3));
-        lootObjectModel.Add(new LootObjectModel(ResourceTypesEnum.Crystal, 20, 3));
-        lootObjectModel.Add(new LootObjectModel(ResourceTypesEnum.Gold, 10, 3));
-        lootObjectModel.Add(new LootObjectModel(ResourceTypesEnum.Null, 20, 3));
+        lootObjectModel.Add(new BucketObjectModel<ResourceTypesEnum>(ResourceTypesEnum.Core, 80, 3));
+        lootObjectModel.Add(new BucketObjectModel<ResourceTypesEnum>(ResourceTypesEnum.Crystal, 20, 3));
+        lootObjectModel.Add(new BucketObjectModel<ResourceTypesEnum>(ResourceTypesEnum.Gold, 10, 3));
+        lootObjectModel.Add(new BucketObjectModel<ResourceTypesEnum>(ResourceTypesEnum.Null, 20, 3));
 
-        List<ResourceModel> tileResources = lootDropTable.GetLoot(lootObjectModel, 3, 5);
+        List<ResourceModel> tileResources = lootDropTable.GetLoot(lootObjectModel, 100, 100, false);
 
         foreach (ResourceModel tileResource in tileResources)
         {

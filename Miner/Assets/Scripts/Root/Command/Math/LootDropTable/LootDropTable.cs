@@ -1,22 +1,28 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
-using UnityEngine;
+using Random = UnityEngine.Random;
 
-public class LootDropTable
+public class LootDropTable <TObjectModel, TObjectTypeEnum> where TObjectModel: ObjectModel<TObjectTypeEnum>  where TObjectTypeEnum: System.Enum 
 {
     double totalWeight = 0;
     double nullebleWeight = 0;
 
-    List<ResourceModel> resourcesModel = new List<ResourceModel>();
+    List<TObjectModel> objectsModel = new List<TObjectModel>();
 
-    Dictionary<ResourceTypesEnum, double> chances = new Dictionary<ResourceTypesEnum, double>();
-    Dictionary<ResourceTypesEnum, double> weights = new Dictionary<ResourceTypesEnum, double>();
+    private TObjectTypeEnum objectTypeEnum;
 
-    Dictionary<ResourceTypesEnum, MathMinMaxDoubleModel> chancesRange = new Dictionary<ResourceTypesEnum, MathMinMaxDoubleModel>();
+    Dictionary<TObjectTypeEnum, double> chances = new Dictionary<TObjectTypeEnum, double>();
+    Dictionary<TObjectTypeEnum, double> weights = new Dictionary<TObjectTypeEnum, double>();
 
-    public List<ResourceModel> GetLoot(List<LootObjectModel> lootObjects, uint minDrop, uint maxDrop)
+    Dictionary<TObjectTypeEnum, MathMinMaxDoubleModel> chancesRange = new Dictionary<TObjectTypeEnum, MathMinMaxDoubleModel>();
+
+    public List<TObjectModel> GetLoot(List<BucketObjectModel<TObjectTypeEnum>> lootObjects, uint minDrop, uint maxDrop, bool isWithoutReplacement = true)
     {
+        objectTypeEnum = (TObjectTypeEnum)System.Enum.Parse(typeof(TObjectTypeEnum), "Null");
+
         for (int i = 0; i < maxDrop; i++)
         {
             InitWeight(lootObjects);
@@ -24,34 +30,34 @@ public class LootDropTable
             if (i == minDrop)
             {
                 totalWeight += nullebleWeight;
-                weights.Add(ResourceTypesEnum.Null, nullebleWeight);
+                weights.Add(objectTypeEnum, nullebleWeight);
             }
 
             else if (i > minDrop)
             {
                 totalWeight += nullebleWeight;
-                weights[ResourceTypesEnum.Null] = nullebleWeight;
+                weights[objectTypeEnum] = nullebleWeight;
             }
 
             CalculateChance();
             ChangesRange();
 
-            float random = Random.Range(0f, 100.1f);
+            float random = Random.Range(0f, 100f);
 
-            GetResource(random, lootObjects);
+            GetResource(random, lootObjects, isWithoutReplacement);
         }
 
-        return resourcesModel;
+        return objectsModel;
     }
 
-    private void InitWeight(List<LootObjectModel> lootObjects)
+    private void InitWeight(List<BucketObjectModel<TObjectTypeEnum>> lootObjects)
     {
         totalWeight = 0;
         nullebleWeight = 0;
 
-        foreach (LootObjectModel lootObject in lootObjects)
+        foreach (BucketObjectModel<TObjectTypeEnum> lootObject in lootObjects)
         {
-            if (lootObject.Item != ResourceTypesEnum.Null)
+            if (!lootObject.Item.Equals(objectTypeEnum))
             {
                 totalWeight += lootObject.Weight * lootObject.Count;
 
@@ -75,18 +81,18 @@ public class LootDropTable
 
     private void CalculateChance()
     {
-        foreach (ResourceTypesEnum resourceType in weights.Keys)
+        foreach (TObjectTypeEnum objectType in weights.Keys)
         {
-            double chance = weights[resourceType] / totalWeight * 100;
+            double chance = weights[objectType] / totalWeight * 100;
 
-            if (!chances.ContainsKey(resourceType))
+            if (!chances.ContainsKey(objectType))
             {
-                chances.Add(resourceType, chance);
+                chances.Add(objectType, chance);
             }
 
             else
             {
-                chances[resourceType] = chance;
+                chances[objectType] = chance;
             }
         }
     }
@@ -126,21 +132,26 @@ public class LootDropTable
         }
     }
 
-    private void GetResource(float random , List<LootObjectModel> lootObjects)
+    private void GetResource(float random , List<BucketObjectModel<TObjectTypeEnum>> lootObjects, bool isWithoutReplacement)
     {
         foreach (var chanceRange in chancesRange)
         {
             if (random > chanceRange.Value.Min && random < chanceRange.Value.Max)
             {
-                if (chanceRange.Key != ResourceTypesEnum.Null)
+                if (!chanceRange.Key.Equals(objectTypeEnum))
                 {
                     bool isResourceModelContain = false;
 
-                    foreach (ResourceModel resourceModel in resourcesModel)
+                    foreach (ObjectModel<TObjectTypeEnum> objectModel in objectsModel)
                     {
-                        if (resourceModel.ResourceType == chanceRange.Key)
+                        //UnityEngine.Debug.LogError("+++++++++++++++++++++++++++++++++++++");
+
+                        //UnityEngine.Debug.LogError(objectModel.ObjectType);
+                        //UnityEngine.Debug.LogError(chanceRange.Key);
+
+                        if (objectModel.ObjectType.Equals(chanceRange.Key))
                         {
-                            resourceModel.AddResource(1);
+                            objectModel.AddObject(1);
                             isResourceModelContain = true;
                             break;
                         }
@@ -148,23 +159,28 @@ public class LootDropTable
 
                     if (!isResourceModelContain)
                     {
-                        resourcesModel.Add(new ResourceModel(chanceRange.Key, 1));
+                        objectsModel.Add((TObjectModel)Activator.CreateInstance(typeof(TObjectModel), new object[]{ chanceRange.Key,  1}));
                     }
                 }
 
-                foreach (LootObjectModel lootObject in lootObjects)
+                if (isWithoutReplacement)
                 {
-                    if (lootObject.Item == chanceRange.Key)
+                    foreach (BucketObjectModel<TObjectTypeEnum> lootObject in lootObjects)
                     {
-                        lootObject.DecreaseCount(1);
-
-                        if (lootObject.Count <= 0)
+                        if (lootObject.Item.Equals(chanceRange.Key))
                         {
-                            ClearLists(lootObjects, lootObject);
+                            lootObject.DecreaseCount(1);
+
+                            if (lootObject.Count <= 0)
+                            {
+                                ClearLists(lootObjects, lootObject);
+                            }
+
+                            break;
                         }
-                        
-                        break;
                     }
+
+                    //DeleteItemFromBucket(lootObjects, chanceRange);
                 }
 
                 break;
@@ -172,7 +188,25 @@ public class LootDropTable
         }
     }
 
-    private void ClearLists(List<LootObjectModel> lootObjects, LootObjectModel lootObject)
+    private void DeleteItemFromBucket(List<BucketObjectModel<TObjectTypeEnum>> lootObjects, KeyValuePair<TObjectTypeEnum, MathMinMaxDoubleModel> chanceRange)
+    {
+        foreach (BucketObjectModel<TObjectTypeEnum> lootObject in lootObjects)
+        {
+            if (lootObject.Item.Equals(chanceRange.Key))
+            {
+                lootObject.DecreaseCount(1);
+
+                if (lootObject.Count <= 0)
+                {
+                    ClearLists(lootObjects, lootObject);
+                }
+
+                break;
+            }
+        }
+    }
+
+    private void ClearLists(List<BucketObjectModel<TObjectTypeEnum>> lootObjects, BucketObjectModel<TObjectTypeEnum> lootObject)
     {
         lootObjects.Remove(lootObject);
         chancesRange.Remove(lootObject.Item);

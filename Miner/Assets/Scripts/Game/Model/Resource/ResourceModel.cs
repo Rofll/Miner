@@ -3,34 +3,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResourceModel
+public class ResourceModel : ObjectModel<ResourceTypesEnum>
 {
     public ResourceModel(ResourceTypesEnum resourceType, int resourceCount)
     {
-        this.resourceType = resourceType;
-        this.resourceCount = resourceCount;
+        objectType = resourceType;
+        count = resourceCount;
     }
 
-    private readonly ResourceTypesEnum resourceType;
-    private int resourceCount = 0;
-
-    public ResourceTypesEnum ResourceType
+    public ResourceTypesEnum ObjectType
     {
-        get { return resourceType; }
+        get { return objectType; }
     }
 
-    public int ResourceCount
+    public int ObjectCount
     {
-        get { return resourceCount; }
+        get { return count; }
     }
 
-    public void AddResource(int count)
+    public override void AddObject(int count)
     {
-        resourceCount += count;
+        count += count;
     }
 
     public override string ToString()
     {
-        return String.Format("ResourceType: {0}, ResourceCount: {1}", resourceType, resourceCount);
+        return String.Format("ResourceType: {0}, ResourceCount: {1}", objectType, count);
     }
 }

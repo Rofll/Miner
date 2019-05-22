@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9493c038b46d6a944812e25b62795909, type: 3}
   m_Name: GameConfig
   m_EditorClassIdentifier: 
-  X: 50
-  Y: 50
-  seed: 0
+  X: 87
+  Y: 2123
+  seed: 456456
+  renderWidth: 1
