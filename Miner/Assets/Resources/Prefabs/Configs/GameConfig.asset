@@ -97,7 +97,7 @@ MonoBehaviour:
     - type: 5
       weight: 100
       count: 10
-  - type: -1
+  - type: 5
     weight: 150
     minDrop: 0
     maxDrop: 0
