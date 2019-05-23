@@ -31,6 +31,8 @@ public class MainContextRoot : MVCSContext
 
 	    injectionBinder.Bind<IGameModel>().To<GameModel>().ToSingleton();
 
+	    injectionBinder.Bind<IInputService>().To<InputService>().ToSingleton();
+
 
 	}
 
