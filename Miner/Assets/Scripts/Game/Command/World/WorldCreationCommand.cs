@@ -179,7 +179,7 @@ public class WorldCreationCommand : BaseCommand
 
                 else
                 {
-                    SetNullTile(new Vector2(posX, posY));
+                    SetNullTile(new Vector2(posX, posY), new Vector2(j, i));
                 }
             }
         }
@@ -227,7 +227,7 @@ public class WorldCreationCommand : BaseCommand
         dispatcher.Dispatch(RootEvents.E_TileGameObjectInit, tile);
     }
 
-    private void SetNullTile(Vector2 position)
+    private void SetNullTile(Vector2 position, Vector2 unityWorldPosition)
     {
         TileModel tile = new TileModel(TileTypeEnum.Null, new List<ResourceModel>(), position, unityWorldPosition);
         dispatcher.Dispatch(RootEvents.E_TileGameObjectInit, tile);
