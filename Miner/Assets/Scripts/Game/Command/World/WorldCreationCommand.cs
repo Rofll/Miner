@@ -22,7 +22,7 @@ public class WorldCreationCommand : BaseCommand
     {
         this.playerPosition = playerPosition;
 
-        BuildWorldPart(playerPosition, GameModel.WorldSize, (int)GameModel.RenderWidth, GameModel.Seed);
+        BuildWorldPart(playerPosition, GameModel.WorldSize, (int)GameModel.PlayerWidth, GameModel.Seed);
     }
 
     private void BuildWorldPart(Vector2 playerPos, Vector2Int world, int renderWidth, uint seed)
@@ -174,7 +174,12 @@ public class WorldCreationCommand : BaseCommand
 
                 if (!(posY == (int)playerPos.y && posX == (int)playerPos.x))
                 {
-                    SetTileRandom(new Vector2(posX, posY));
+                    SetTileRandom(new Vector2(posX, posY), new Vector2(j,i));
+                }
+
+                else
+                {
+                    SetNullTile(new Vector2(posX, posY));
                 }
             }
         }
@@ -182,10 +187,12 @@ public class WorldCreationCommand : BaseCommand
 
     private TileModel tile;
     private Vector2 tilePosition;
+    private Vector2 unityWorldPosition;
 
-    private void SetTileRandom(Vector2 position)
+    private void SetTileRandom(Vector2 position, Vector2 unityWorldPosition)
     {
         tilePosition = position;
+        this.unityWorldPosition = unityWorldPosition;
 
         Action<TileModel> callBackTile = GetTileCallBack;
 
@@ -211,11 +218,18 @@ public class WorldCreationCommand : BaseCommand
     private void SetTileToWorld(TileModel tile)
     {
         tile.InitPosition(tilePosition);
+        tile.InitUnityWorldPosition(unityWorldPosition);
 
         GameModel.TileAddToMap(tile);
 
-        Debug.Log(String.Format("Tile {0} Pos:[{1}][{2}]", tile.TileType.ToString(), tilePosition.x, tilePosition.y));
+        Debug.Log(String.Format("Tile {0} Pos:[{1}][{2}]    PosUnity:[{3}][{4}]", tile.TileType.ToString(), tilePosition.x, tilePosition.y, unityWorldPosition.x, unityWorldPosition.y));
 
+        dispatcher.Dispatch(RootEvents.E_TileGameObjectInit, tile);
+    }
+
+    private void SetNullTile(Vector2 position)
+    {
+        TileModel tile = new TileModel(TileTypeEnum.Null, new List<ResourceModel>(), position, unityWorldPosition);
         dispatcher.Dispatch(RootEvents.E_TileGameObjectInit, tile);
     }
 }

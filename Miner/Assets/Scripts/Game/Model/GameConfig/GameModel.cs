@@ -21,7 +21,7 @@ public class GameModel : IGameModel
         get { return seed; }
     }
 
-    public uint RenderWidth
+    public uint PlayerWidth
     {
         get { return renderWidth; }
     }

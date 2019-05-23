@@ -29,7 +29,7 @@ public class TilePoolCreateCommand : BaseCommand
                 if (tilePoolView != null)
                 {
 
-                    int totalTileOneType = (int)GameModel.RenderWidth * 8;
+                    int totalTileOneType = (int)GameModel.PlayerWidth * 8;
 
                     Dictionary<TileTypeEnum, List<GameObject>> tilePool = new Dictionary<TileTypeEnum, List<GameObject>>();
 
@@ -85,7 +85,7 @@ public class TilePoolCreateCommand : BaseCommand
 
             TileView tileView = clone.GetComponent<TileView>();
 
-            tileView.OnUnSpawn();
+            tileView.OnDeSpawn();
 
             return clone;
         }

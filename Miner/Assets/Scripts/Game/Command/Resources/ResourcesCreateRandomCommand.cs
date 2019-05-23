@@ -44,7 +44,7 @@ public class ResourcesCreateRandomCommand : BaseCommand
         }
 
 
-        if (resources != null && resources.Count > 0)
+        if (resources != null)
         {
             callback.Invoke(resources);
         }

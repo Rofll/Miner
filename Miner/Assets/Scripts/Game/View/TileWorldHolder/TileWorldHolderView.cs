@@ -33,7 +33,7 @@ public class TileWorldHolderView : BaseView
                         tilesWorld.Add(tile.Position, new List<GameObject>() { tileGameObject });
                     }
 
-                    tileGameObject.transform.position = tile.Position;
+                    tileGameObject.transform.position = tile.UnityWorldPosition;
                     tileGameObject.transform.parent = gameObject.transform;
 
                     tile.OnSpawn();

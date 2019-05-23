@@ -20,6 +20,8 @@ MonoBehaviour:
   tiles:
   - type: 0
     weight: 100
+    minDrop: 1
+    maxDrop: 5
     resources:
     - type: 0
       weight: 150
@@ -29,6 +31,8 @@ MonoBehaviour:
       count: 10
   - type: 1
     weight: 150
+    minDrop: 1
+    maxDrop: 5
     resources:
     - type: 0
       weight: 150
@@ -36,6 +40,60 @@ MonoBehaviour:
     - type: 2
       weight: 50
       count: 5
+    - type: 5
+      weight: 100
+      count: 10
+  - type: 2
+    weight: 150
+    minDrop: 1
+    maxDrop: 5
+    resources:
+    - type: 0
+      weight: 150
+      count: 20
+    - type: 2
+      weight: 50
+      count: 5
+    - type: 1
+      weight: 70
+      count: 10
+    - type: 3
+      weight: 20
+      count: 3
+    - type: 5
+      weight: 100
+      count: 10
+  - type: 3
+    weight: 150
+    minDrop: 1
+    maxDrop: 5
+    resources:
+    - type: 0
+      weight: 150
+      count: 20
+    - type: 2
+      weight: 50
+      count: 5
+    - type: 1
+      weight: 70
+      count: 10
+    - type: 3
+      weight: 20
+      count: 3
+    - type: 5
+      weight: 100
+      count: 10
+  - type: 4
+    weight: 150
+    minDrop: 0
+    maxDrop: 5
+    resources:
+    - type: 2
+      weight: 50
+      count: 5
+    - type: 5
+      weight: 150
+      count: 20
     - type: 5
       weight: 100
       count: 10

@@ -10,7 +10,7 @@ public interface IGameModel
 
     uint Seed { get; }
 
-    uint RenderWidth { get; }
+    uint PlayerWidth { get; }
 
     List<TileCreateModel> Tiles { get; }
 

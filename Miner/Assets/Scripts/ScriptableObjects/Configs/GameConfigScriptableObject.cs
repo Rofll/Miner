@@ -41,7 +41,7 @@ public class GameConfigScriptableObject : ScriptableObject
         get { return seed; }
     }
 
-    public uint RenderWidth
+    public uint PlayerWidth
     {
         get { return playerWidth; }
     }

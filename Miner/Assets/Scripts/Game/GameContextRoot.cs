@@ -37,9 +37,5 @@ public class GameContextRoot : MVCSContext
         //base.mapBindings();
 
         mediationBinder.Bind<TileView>().To<TileMediator>();
-
-        crossContextBridge.Bind(RootEvents.E_TileCreateSpecific);
-
-        commandBinder.Bind(RootEvents.E_TileCreateSpecific).To<TileConcreteCreateCommand>();
     }
 }

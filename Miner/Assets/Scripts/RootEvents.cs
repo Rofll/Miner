@@ -19,7 +19,6 @@ public enum RootEvents
     //
 
     // Tile
-    E_TileCreateSpecific,
     E_TileCreateRandom,
     E_TileHolderGet,
     E_TileSetToWorld,

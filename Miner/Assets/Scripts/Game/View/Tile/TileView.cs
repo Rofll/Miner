@@ -8,6 +8,7 @@ public class TileView : BaseView
     private TileTypeEnum tileType;
     private List<ResourceModel> resources;
     private Vector2 position = Vector2.zero;
+    private Vector2 unityWorldPosition = Vector2.zero;
 
     [SerializeField]
     private Renderer renderer;
@@ -28,12 +29,18 @@ public class TileView : BaseView
         get { return position; }
     }
 
+    public Vector2 UnityWorldPosition
+    {
+        get { return unityWorldPosition; }
+    }
+
 
     public void Init(TileModel tileModel)
     {
         this.tileType = tileModel.TileType;
         this.resources = tileModel.Resources;
         this.position = tileModel.Position;
+        this.unityWorldPosition = tileModel.UnityWorldPosition;
     }
 
     public override void OnRegister()
@@ -54,7 +61,7 @@ public class TileView : BaseView
         renderer.enabled = true;
     }
 
-    public void OnUnSpawn()
+    public void OnDeSpawn()
     {
         renderer.enabled = false;
     }
