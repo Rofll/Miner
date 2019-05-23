@@ -13,7 +13,7 @@ public enum TileTypeEnum
     Water,
     Empty,
 
-    Null,
+    End,
 
-    End
+    Null
 }
