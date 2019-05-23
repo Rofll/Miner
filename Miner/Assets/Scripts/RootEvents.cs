@@ -13,6 +13,13 @@ public enum RootEvents
 
     /////////////////////////////////////////////////// Game
 
+    // Camera
+
+    E_CameraMainStartFolowPlayer,
+    E_CameraMainStopFolowPlayer,
+
+    //
+
     // Player
     E_PlayerCreate,
     E_PlayerPositionGet,
