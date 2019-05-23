@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum TileTypesEnum
+public enum TileTypeEnum
 {
     None = -1,
 

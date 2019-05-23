@@ -10,7 +10,7 @@ public class TileCreateModel
 
     }
 
-    public TileCreateModel(TileTypesEnum type, List<ResourceCreateModel> resources, float weight)
+    public TileCreateModel(TileTypeEnum type, List<ResourceCreateModel> resources, float weight)
     {
         this.type = type;
         this.resources = resources;
@@ -18,14 +18,18 @@ public class TileCreateModel
     }
 
     [SerializeField]
-    private TileTypesEnum type;
+    private TileTypeEnum type;
     [SerializeField]
     [Range(1,float.MaxValue)]
     private float weight;
     [SerializeField]
+    private uint minDrop;
+    [SerializeField]
+    private uint maxDrop;
+    [SerializeField]
     private List<ResourceCreateModel> resources;
 
-    public TileTypesEnum Type
+    public TileTypeEnum Type
     {
         get { return type; }
     }
@@ -38,5 +42,15 @@ public class TileCreateModel
     public List<ResourceCreateModel> Resources
     {
         get { return resources; }
+    }
+
+    public uint MinDrop
+    {
+        get { return minDrop; }
+    }
+
+    public uint MaxDrop
+    {
+        get { return maxDrop; }
     }
 }

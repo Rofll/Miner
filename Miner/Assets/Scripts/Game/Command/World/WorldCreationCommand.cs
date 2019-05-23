@@ -174,10 +174,48 @@ public class WorldCreationCommand : BaseCommand
 
                 if (!(posY == (int)playerPos.y && posX == (int)playerPos.x))
                 {
-                    Debug.LogError(String.Format("Pos:[{0}][{1}]", posX, posY));
-                    dispatcher.Dispatch(RootEvents.E_TileCreateRandom);
+                    SetTileRandom(new Vector2(posX, posY));
                 }
             }
         }
+    }
+
+    private TileModel tile;
+    private Vector2 tilePosition;
+
+    private void SetTileRandom(Vector2 position)
+    {
+        tilePosition = position;
+
+        Action<TileModel> callBackTile = GetTileCallBack;
+
+        dispatcher.Dispatch(RootEvents.E_TileCreateRandom, callBackTile);
+    }
+
+    private void GetTileCallBack(TileModel tile)
+    {
+        this.tile = tile;
+
+        Action<List<ResourceModel>> callBackResources = GetResourcesCallBack;
+
+        dispatcher.Dispatch(RootEvents.E_ResourcesCreateRandom, new ResourcesCreateCallBackModel(tile.TileType, GetResourcesCallBack));
+    }
+
+    private void GetResourcesCallBack(List<ResourceModel> resources)
+    {
+        tile.FillResources(resources);
+
+        SetTileToWorld(tile);
+    }
+
+    private void SetTileToWorld(TileModel tile)
+    {
+        tile.InitPosition(tilePosition);
+
+        GameModel.TileAddToMap(tile);
+
+        Debug.Log(String.Format("Tile {0} Pos:[{1}][{2}]", tile.TileType.ToString(), tilePosition.x, tilePosition.y));
+
+        dispatcher.Dispatch(RootEvents.E_TileGameObjectInit, tile);
     }
 }

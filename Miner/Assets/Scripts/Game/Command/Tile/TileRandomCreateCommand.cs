@@ -22,13 +22,13 @@ public class TileRandomCreateCommand : BaseCommand
 
     private void CreateRandomTile(Action<TileModel> callback)
     {
-        LootDropTable<TileModel, TileTypesEnum> lootDropTable = new LootDropTable<TileModel, TileTypesEnum>();
+        LootDropTable<TileModel, TileTypeEnum> lootDropTable = new LootDropTable<TileModel, TileTypeEnum>();
 
-        List<BucketObjectModel<TileTypesEnum>> lootObjectModel = new List<BucketObjectModel<TileTypesEnum>>();
+        List<BucketObjectModel<TileTypeEnum>> lootObjectModel = new List<BucketObjectModel<TileTypeEnum>>();
 
         foreach (TileCreateModel tileCreateModel in GameModel.Tiles)
         {
-            BucketObjectModel<TileTypesEnum> bucketObject = new BucketObjectModel<TileTypesEnum>(tileCreateModel.Type, tileCreateModel.Weight, 1);
+            BucketObjectModel<TileTypeEnum> bucketObject = new BucketObjectModel<TileTypeEnum>(tileCreateModel.Type, tileCreateModel.Weight, 1);
             lootObjectModel.Add(bucketObject);
         }
 
@@ -37,7 +37,7 @@ public class TileRandomCreateCommand : BaseCommand
         if (tileModels != null && tileModels.Count > 0)
         {
             callback.Invoke(tileModels[0]);
-            Debug.LogError(tileModels[0].TileType);
+            //Debug.Log(tileModels[0].TileType);
         }
         else
         {

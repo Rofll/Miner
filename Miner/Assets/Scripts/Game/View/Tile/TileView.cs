@@ -5,17 +5,34 @@ using UnityEngine;
 public class TileView : BaseView
 {
 
-    private TileTypesEnum tileType;
-    private List<ResourceModel> resourceses;
+    private TileTypeEnum tileType;
+    private List<ResourceModel> resources;
     private Vector2 position = Vector2.zero;
 
     [SerializeField]
     private Renderer renderer;
 
+
+    public TileTypeEnum TileType
+    {
+        get { return tileType; }
+    }
+
+    public List<ResourceModel> Resources
+    {
+        get { return resources; }
+    }
+
+    public Vector2 Position
+    {
+        get { return position; }
+    }
+
+
     public void Init(TileModel tileModel)
     {
         this.tileType = tileModel.TileType;
-        this.resourceses = tileModel.Resources;
+        this.resources = tileModel.Resources;
         this.position = tileModel.Position;
     }
 
@@ -32,13 +49,13 @@ public class TileView : BaseView
 
     }
 
-    public void RenderOff()
-    {
-        renderer.enabled = false;
-    }
-
-    public void RenderOn()
+    public void OnSpawn()
     {
         renderer.enabled = true;
+    }
+
+    public void OnUnSpawn()
+    {
+        renderer.enabled = false;
     }
 }

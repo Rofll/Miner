@@ -50,31 +50,61 @@ public class MainContextRoot : MVCSContext
             .To<CameraMainAddCommand>()
             .To<ConfigGameLoadCommand>()
             .To<PlayerCreationCommand>()
+            .To<TilePoolCreateCommand>()
+            .To<TileWorldHolderCreateCommand>()
             .To<RetainOneFrameCommand>()
             .To<TileChestCreateCommand>()
-            .To<TilePoolCreateCommand>()
-            //.To<WorldCreationCommand>()
+            .To<WorldCreationCommand>()
             //.To<TileRandomCreateCommand>()
             .Pooled()
             .InSequence()
             .Once();
 
-        // Root
+        //////////////////////////////////////////////////////////////////////// Root
+        
+        // MainCamera
+
         mediationBinder.BindView<MainCameraView>().ToMediator<MainCameraMediator>();
+
         //
 
-        // Game
+        /////////////////////////////////////////////////////////////////////// 
+
+        ///////////////////////////////////////////////////////////////////////  Game
+        
+        // Player
+
         mediationBinder.BindView<PlayerView>().ToMediator<PlayerMediator>();
+
+        commandBinder.Bind(RootEvents.E_PlayerCreate).To<PlayerCreationCommand>().Pooled();
+
+        //
+
+        // Tile
 
         mediationBinder.BindView<TileView>().ToMediator<TileMediator>();
         mediationBinder.BindView<TilePoolView>().ToMediator<TilePoolMediator>();
+        mediationBinder.BindView<TileWorldHolderView>().ToMediator<TileWorldHolderMediator>();
 
-        commandBinder.Bind(RootEvents.E_PlayerCreate).To<PlayerCreationCommand>().Pooled();
         commandBinder.Bind(RootEvents.E_TileCreateRandom).To<TileRandomCreateCommand>().Pooled();
-        //
 
-        // UI
 
         //
+
+        // Resources
+
+        commandBinder.Bind(RootEvents.E_ResourcesCreateRandom).To<ResourcesCreateRandomCommand>().Pooled();
+
+        //
+
+
+        /////////////////////////////////////////////////////////////////////// 
+
+        /////////////////////////////////////////////////////////////////////// UI
+
+
+
+        
+        ///////////////////////////////////////////////////////////////////////
     }
 }

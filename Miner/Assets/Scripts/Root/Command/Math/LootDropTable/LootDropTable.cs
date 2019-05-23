@@ -22,6 +22,12 @@ public class LootDropTable <TObjectModel, TObjectTypeEnum> where TObjectModel: O
     public List<TObjectModel> GetLoot(List<BucketObjectModel<TObjectTypeEnum>> lootObjects, uint minDrop, uint maxDrop, bool isWithoutReplacement = true)
     {
 
+        if (minDrop > maxDrop)
+        {
+            UnityEngine.Debug.LogError(String.Format("minDrop > maxDrop: {0} > {1}", minDrop, maxDrop));
+            return null;
+        }
+
         try
         {
             objectTypeEnumNull = (TObjectTypeEnum) System.Enum.Parse(typeof(TObjectTypeEnum), "Null");

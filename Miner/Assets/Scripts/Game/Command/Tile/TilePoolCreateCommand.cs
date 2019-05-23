@@ -31,17 +31,17 @@ public class TilePoolCreateCommand : BaseCommand
 
                     int totalTileOneType = (int)GameModel.RenderWidth * 8;
 
-                    Dictionary<TileTypesEnum, List<GameObject>> tilePool = new Dictionary<TileTypesEnum, List<GameObject>>();
+                    Dictionary<TileTypeEnum, List<GameObject>> tilePool = new Dictionary<TileTypeEnum, List<GameObject>>();
 
                     List<GameObject> tilesType;
 
-                    for (int i = 0; i < (int)TileTypesEnum.End; i++)
+                    for (int i = 0; i < (int)TileTypeEnum.End; i++)
                     {
                         tilesType = new List<GameObject>();
 
                         for (int j = 0; j < totalTileOneType; j++)
                         {
-                            GameObject tileGameObject = CreateTileGameObject((TileTypesEnum) i, clone.transform);
+                            GameObject tileGameObject = CreateTileGameObject((TileTypeEnum) i, clone.transform);
 
                             if (tileGameObject == null)
                             {
@@ -52,7 +52,7 @@ public class TilePoolCreateCommand : BaseCommand
                             tilesType.Add(tileGameObject);
                         }
 
-                        tilePool.Add((TileTypesEnum)i, tilesType);
+                        tilePool.Add((TileTypeEnum)i, tilesType);
                     }
 
 
@@ -72,7 +72,7 @@ public class TilePoolCreateCommand : BaseCommand
         }
     }
 
-    private GameObject CreateTileGameObject(TileTypesEnum tileType, Transform parent)
+    private GameObject CreateTileGameObject(TileTypeEnum tileType, Transform parent)
     {
         Object obj = Resources.Load(RESOURCE_PATH_TILE + OBJECT_NAME_Tile + tileType.ToString());
 
@@ -85,7 +85,7 @@ public class TilePoolCreateCommand : BaseCommand
 
             TileView tileView = clone.GetComponent<TileView>();
 
-            tileView.RenderOff();
+            tileView.OnUnSpawn();
 
             return clone;
         }

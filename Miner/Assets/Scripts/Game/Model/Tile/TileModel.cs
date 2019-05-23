@@ -2,22 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TileModel : ObjectModel<TileTypesEnum>
+public class TileModel : ObjectModel<TileTypeEnum>
 {
-    public TileModel(TileTypesEnum tileType, int count = 1)
+    public TileModel(TileTypeEnum tileType, int count = 1)
     {
         this.objectType = tileType;
         this.count = 1;
     }
 
-    public TileModel(List<ResourceModel> resources, TileTypesEnum tileType, int count = 1)
+    public TileModel(List<ResourceModel> resources, TileTypeEnum tileType, int count = 1)
     {
         this.resources = resources;
         this.objectType = tileType;
         this.count = 1;
     }
 
-    public TileModel(List<ResourceModel> resources, TileTypesEnum tileType, Vector2 position, int count = 1)
+    public TileModel(List<ResourceModel> resources, TileTypeEnum tileType, Vector2 position, int count = 1)
     {
         this.resources = resources;
         this.objectType = tileType;
@@ -33,7 +33,7 @@ public class TileModel : ObjectModel<TileTypesEnum>
         get { return resources; }
     }
 
-    public TileTypesEnum TileType
+    public TileTypeEnum TileType
     {
         get { return objectType; }
     }

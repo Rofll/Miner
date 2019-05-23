@@ -25,8 +25,6 @@ public class PlayerView : BaseView
 
     private void GivePlayerPosition(strange.extensions.dispatcher.eventdispatcher.api.IEvent data)
     {
-        Debug.LogError("YEP");
-
         Action<Vector2> callBack = data.data as Action<Vector2>;
 
         if (callBack != null)
