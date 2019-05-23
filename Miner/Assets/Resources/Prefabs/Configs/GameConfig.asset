@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9493c038b46d6a944812e25b62795909, type: 3}
   m_Name: GameConfig
   m_EditorClassIdentifier: 
-  X: 87
-  Y: 2123
+  X: 500
+  Y: 5000
   seed: 456456
-  playerWidth: 1
+  playerWidth: 2
   radarWidth: 1
   tiles:
   - type: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
       weight: 100
       count: 10
   - type: 2
-    weight: 150
+    weight: 50
     minDrop: 1
     maxDrop: 5
     resources:
@@ -64,7 +64,7 @@ MonoBehaviour:
       weight: 100
       count: 10
   - type: 3
-    weight: 150
+    weight: 20
     minDrop: 1
     maxDrop: 5
     resources:
@@ -84,7 +84,7 @@ MonoBehaviour:
       weight: 100
       count: 10
   - type: 4
-    weight: 150
+    weight: 50
     minDrop: 0
     maxDrop: 5
     resources:
@@ -97,3 +97,8 @@ MonoBehaviour:
     - type: 5
       weight: 100
       count: 10
+  - type: -1
+    weight: 150
+    minDrop: 0
+    maxDrop: 0
+    resources: []

@@ -29,32 +29,35 @@ public class TilePoolCreateCommand : BaseCommand
                 if (tilePoolView != null)
                 {
 
-                    int totalTileOneType = (int)GameModel.PlayerWidth * 8;
+                    int totalTileOneType = (int) GameModel.PlayerWidth * 8;
 
                     Dictionary<TileTypeEnum, List<GameObject>> tilePool = new Dictionary<TileTypeEnum, List<GameObject>>();
 
                     List<GameObject> tilesType;
 
-                    for (int i = 0; i < (int)TileTypeEnum.End; i++)
+                    for (int i = 0; i < (int) TileTypeEnum.End; i++)
                     {
-                        tilesType = new List<GameObject>();
+                        if ((TileTypeEnum) i != TileTypeEnum.Null)
+                        { 
+                            tilesType = new List<GameObject>();
 
-                        for (int j = 0; j < totalTileOneType; j++)
-                        {
-                            GameObject tileGameObject = CreateTileGameObject((TileTypeEnum) i, clone.transform);
-
-                            if (tileGameObject == null)
+                            for (int j = 0; j < totalTileOneType; j++)
                             {
-                                Debug.LogError("tileGameObject == NULL");
-                                break;
+                                GameObject tileGameObject = CreateTileGameObject((TileTypeEnum) i, clone.transform);
+
+                                if (tileGameObject == null)
+                                {
+                                    Debug.LogError("tileGameObject == NULL");
+                                    break;
+                                }
+
+                                tilesType.Add(tileGameObject);
                             }
 
-                            tilesType.Add(tileGameObject);
+                            tilePool.Add((TileTypeEnum) i, tilesType);
                         }
 
-                        tilePool.Add((TileTypeEnum)i, tilesType);
                     }
-
 
                     tilePoolView.FillTilePool(tilePool);
                 }

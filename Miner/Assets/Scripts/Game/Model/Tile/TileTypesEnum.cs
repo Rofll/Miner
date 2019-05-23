@@ -11,6 +11,7 @@ public enum TileTypeEnum
     Stone,
     Obsidian,
     Water,
+    Empty,
 
     Null,
 
