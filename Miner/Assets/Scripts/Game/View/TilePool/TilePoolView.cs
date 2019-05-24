@@ -9,11 +9,13 @@ public class TilePoolView : BaseView
     public override void OnRegister()
     {
         dispatcher.AddListener(RootEvents.E_TileGameObjectInit, GiveTile);
+        dispatcher.AddListener(RootEvents.E_TileSetToPool, ReceiveTile);
     }
 
     public override void OnRemove()
     {
         dispatcher.RemoveListener(RootEvents.E_TileGameObjectInit, GiveTile);
+        dispatcher.RemoveListener(RootEvents.E_TileSetToPool, ReceiveTile);
     }
 
     private void GiveTile(strange.extensions.dispatcher.eventdispatcher.api.IEvent data)
@@ -75,9 +77,24 @@ public class TilePoolView : BaseView
 
     }
 
-    private void ReceiveTile()
+    private void ReceiveTile(strange.extensions.dispatcher.eventdispatcher.api.IEvent data)
     {
+        TileView tile = data.data as TileView;
 
+        if (tile != null)
+        {
+            if (tilePool.ContainsKey(tile.TileType))
+            {
+                tilePool[tile.TileType].Add(tile.gameObject);
+                tile.gameObject.transform.parent = gameObject.transform;
+                tile.gameObject.transform.localPosition = Vector2.zero;
+            }
+
+            else
+            {
+                Debug.LogError(string.Format("tilePool not Contains {0} key", tile.TileType.ToString()));
+            }
+        }
     }
 
     public void FillTilePool(Dictionary<TileTypeEnum, List<GameObject>> tilePool)

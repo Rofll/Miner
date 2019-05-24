@@ -14,7 +14,7 @@ public enum RootEvents
     /////////////////////////////////////////////////// Game
 
     // Input
-    E_InputOnKey,
+    E_InputOnKeyAction,
     //
 
     // Camera
@@ -27,14 +27,18 @@ public enum RootEvents
     // Player
     E_PlayerCreate,
     E_PlayerPositionGet,
+    E_PlayerNewPosition,
+    E_PlayerUpdatePosition,
     //
 
     // Tile
     E_TileCreateRandom,
     E_TileHolderGet,
     E_TileSetToWorld,
+    E_TileSetToPool,
     E_TileGameObjectInit,
     E_TileWorldHolderCreate,
+    E_TileWorldCreate,
     //
 
     // Resources

@@ -10,5 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7293589f873ee9344945a277a91fcf0f, type: 3}
-  m_Name: ControlConfig
+  m_Name: InputControlConfig
   m_EditorClassIdentifier: 
+  binds:
+  - inputAction: 1
+    key: 119
+  - inputAction: 2
+    key: 115
+  - inputAction: 3
+    key: 97
+  - inputAction: 4
+    key: 100
+  - inputAction: 5
+    key: 105
+  - inputAction: 6
+    key: 105
+  - inputAction: 7
+    key: 109
+  - inputAction: 8
+    key: 109

@@ -15,7 +15,7 @@ MonoBehaviour:
   X: 500
   Y: 5000
   seed: 456456
-  playerWidth: 2
+  playerWidth: 1
   radarWidth: 1
   tiles:
   - type: 0

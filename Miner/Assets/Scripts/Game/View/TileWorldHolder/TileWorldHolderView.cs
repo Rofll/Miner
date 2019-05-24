@@ -9,11 +9,13 @@ public class TileWorldHolderView : BaseView
     public override void OnRegister()
     {
        dispatcher.AddListener(RootEvents.E_TileSetToWorld, ReceiveTile);
+       dispatcher.AddListener(RootEvents.E_PlayerNewPosition, OnPlayerNewPosition);
     }
 
     public override void OnRemove()
     {
         dispatcher.RemoveListener(RootEvents.E_TileSetToWorld, ReceiveTile);
+        dispatcher.RemoveListener(RootEvents.E_PlayerNewPosition, OnPlayerNewPosition);
     }
 
     private void ReceiveTile(strange.extensions.dispatcher.eventdispatcher.api.IEvent data)
@@ -28,9 +30,9 @@ public class TileWorldHolderView : BaseView
 
                 if (tile != null)
                 {
-                    if (!tilesWorld.ContainsKey(tile.Position))
+                    if (!tilesWorld.ContainsKey(tile.UnityWorldPosition))
                     {
-                        tilesWorld.Add(tile.Position, new List<GameObject>() { tileGameObject });
+                        tilesWorld.Add(tile.UnityWorldPosition, new List<GameObject>() { tileGameObject });
                     }
 
                     tileGameObject.transform.position = tile.UnityWorldPosition;
@@ -52,8 +54,38 @@ public class TileWorldHolderView : BaseView
         }
     }
 
+    private void OnPlayerNewPosition(strange.extensions.dispatcher.eventdispatcher.api.IEvent data)
+    {
+        Vector2 playerPosition = (Vector2) data.data;
+
+        if (tilesWorld.ContainsKey(playerPosition))
+        {
+            Debug.LogError("BBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
+
+            TileView tileView = tilesWorld[playerPosition][0].gameObject.GetComponent<TileView>();
+
+            if (tileView != null)
+            {
+                Debug.LogError("CCCCCCCCCCCCCCCCCCCCCCCCC");
+                dispatcher.Dispatch(RootEvents.E_PlayerUpdatePosition, tileView.Position);
+                GiveTyle();
+            }
+        }
+    }
+
     private void GiveTyle()
     {
+        foreach (var tile in tilesWorld)
+        {
+            TileView tileView = tile.Value[0].GetComponent<TileView>();
 
+            if (tileView != null)
+            {
+                tileView.OnDeSpawn();
+                dispatcher.Dispatch(RootEvents.E_TileSetToPool, tileView);
+            }
+        }
+
+        tilesWorld.Clear();
     }
 }

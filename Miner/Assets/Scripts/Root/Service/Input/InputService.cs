@@ -90,7 +90,7 @@ public class InputService : IInputService
 
     public void OnKey(InputActionStateModel inputActionStateModel)
     {
-        MainContextView.DispatchStrangeEvent(RootEvents.E_InputOnKey, inputActionStateModel);
+        MainContextView.DispatchStrangeEvent(RootEvents.E_InputOnKeyAction, inputActionStateModel);
     }
 
 }

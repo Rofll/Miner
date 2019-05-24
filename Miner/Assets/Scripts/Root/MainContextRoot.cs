@@ -95,6 +95,7 @@ public class MainContextRoot : MVCSContext
         mediationBinder.BindView<TileWorldHolderView>().ToMediator<TileWorldHolderMediator>();
 
         commandBinder.Bind(RootEvents.E_TileCreateRandom).To<TileRandomCreateCommand>().Pooled();
+        commandBinder.Bind(RootEvents.E_TileWorldCreate).To<WorldCreationCommand>().Pooled();
 
 
         //

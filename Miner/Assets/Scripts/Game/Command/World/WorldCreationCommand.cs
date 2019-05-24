@@ -22,6 +22,17 @@ public class WorldCreationCommand : BaseCommand
     {
         this.playerPosition = playerPosition;
 
+        Debug.LogError("BUILD");
+        Debug.LogError(playerPosition.ToString());
+
+        //BuildWorldPart(playerPosition, GameModel.WorldSize, (int)GameModel.PlayerWidth, GameModel.Seed);
+
+        CoroutineWorker.StarCoroutine(WaitForFrame());
+    }
+
+    private IEnumerator WaitForFrame()
+    {
+        yield return null;
         BuildWorldPart(playerPosition, GameModel.WorldSize, (int)GameModel.PlayerWidth, GameModel.Seed);
     }
 
@@ -220,7 +231,7 @@ public class WorldCreationCommand : BaseCommand
         tile.InitPosition(tilePosition);
         tile.InitUnityWorldPosition(unityWorldPosition);
 
-        GameModel.TileAddToMap(tile);
+        //GameModel.TileAddToMap(tile);
 
         Debug.Log(String.Format("Tile {0} Pos:[{1}][{2}]    PosUnity:[{3}][{4}]", tile.TileType.ToString(), tilePosition.x, tilePosition.y, unityWorldPosition.x, unityWorldPosition.y));
 
