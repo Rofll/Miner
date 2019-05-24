@@ -4,6 +4,8 @@ using UnityEngine;
 
 public interface IInputService
 {
+    void InitInputService(IInputControlModel inputControlModel);
+
     void OnTap();
     void OnSwipe();
     void OnDrag();

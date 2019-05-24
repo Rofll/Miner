@@ -26,12 +26,15 @@ public class MainContextRoot : MVCSContext
 
 	    injectionBinder.Bind<ICoroutineWorker>().To<CoroutineWorker>().ToSingleton();
 
+	    injectionBinder.Bind<IInputService>().To<InputService>().ToSingleton();
+
         injectionBinder.Unbind<ICommandBinder>(); //Unbind to avoid a conflict!
 	    injectionBinder.Bind<ICommandBinder>().To<EventCommandBinder>().ToSingleton();
 
 	    injectionBinder.Bind<IGameModel>().To<GameModel>().ToSingleton();
+	    injectionBinder.Bind<IInputControlModel>().To<InputControlModel>().ToSingleton();
 
-	    injectionBinder.Bind<IInputService>().To<InputService>().ToSingleton();
+	    
 
 
 	}
@@ -49,8 +52,10 @@ public class MainContextRoot : MVCSContext
 #elif UNITY_ANDROID
 #elif UNITY_EDITOR
 #endif
-            .To<CameraMainAddCommand>()
+            .To<InputServiceStartCommand>()
+            .To<ConfigInputControlLoadCommand>()
             .To<ConfigGameLoadCommand>()
+            .To<CameraMainAddCommand>()
             .To<PlayerCreationCommand>()
             .To<TilePoolCreateCommand>()
             .To<TileWorldHolderCreateCommand>()

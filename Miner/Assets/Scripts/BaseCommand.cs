@@ -24,6 +24,9 @@ public class BaseCommand : EventCommand
     [Inject]
     public IGameModel GameModel { get; set; }
 
+    [Inject]
+    public IInputControlModel InputControlModel { get; set; }
+
     public override void Execute()
     {
         

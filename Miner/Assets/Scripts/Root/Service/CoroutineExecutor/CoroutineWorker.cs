@@ -3,8 +3,6 @@ using System.Collections;
 using System;
 
 
-//public class  
-
 public class CoroutineWorkerMonoBehaviour : MonoBehaviour
 {
 

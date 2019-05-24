@@ -13,6 +13,10 @@ public enum RootEvents
 
     /////////////////////////////////////////////////// Game
 
+    // Input
+    E_InputOnKey,
+    //
+
     // Camera
 
     E_CameraMainStartFolowPlayer,

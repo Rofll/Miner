@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 
 public class MainCameraView : BaseView
 {
+
     private Action<Vector2> playerPositionCallBack;
     private Vector2 playerPosition = Vector2.zero;
 
@@ -25,6 +27,7 @@ public class MainCameraView : BaseView
         dispatcher.RemoveListener(RootEvents.E_CameraMainStartFolowPlayer, OnCameraMainStartFolowPlayer);
         dispatcher.RemoveListener(RootEvents.E_CameraMainStopFolowPlayer, OnCameraMainStopFolowPlayer);
     }
+
 
     private void OnCameraMainStartFolowPlayer()
     {

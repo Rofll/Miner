@@ -17,6 +17,10 @@ public abstract class BaseView : View
     [Inject]
     public IGameModel GameModel { get; set; }
 
+    [Inject]
+    public IInputControlModel ControlModel { get; set; }
+
+
     public abstract void OnRegister();
     public abstract void OnRemove();
 

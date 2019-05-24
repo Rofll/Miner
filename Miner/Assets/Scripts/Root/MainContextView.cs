@@ -28,6 +28,7 @@ public class MainContextView : ContextViewRoot
     protected override void RunContext()
     {
         context = new MainContextRoot(this);
+        InitDispather();
         //context.Start();
     }
 
