@@ -58,4 +58,17 @@ public class GameModel : IGameModel
     {
         map.Add(tile.Position, tile);
     }
+
+    public void TileRewriteToMap(TileModel tile)
+    {
+        if (map.ContainsKey(tile.Position))
+        {
+            map[tile.Position] = tile;
+        }
+        else
+        {
+            Debug.LogWarning("tile with coordinates [{0}][{1}] doesn't exist");
+            map.Add(tile.Position, tile);
+        }
+    }
 }

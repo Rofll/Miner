@@ -10,6 +10,7 @@ public class PlayerView : BaseView
     private float playerSpeed = 1f;
     private bool isMovedOnThisFrame = false;
     private Coroutine waitForNewFreameCoroutine;
+    private List<InputActionEnum> inputAcion;
 
 
     public override void OnRegister()
@@ -17,6 +18,8 @@ public class PlayerView : BaseView
         dispatcher.AddListener(RootEvents.E_PlayerPositionGet, GivePlayerPosition);
         dispatcher.AddListener(RootEvents.E_InputOnKeyAction, OnInputAction);
         dispatcher.AddListener(RootEvents.E_PlayerUpdatePosition, UpdatePosition);
+
+        inputAcion = new List<InputActionEnum>();
     }
 
     public override void OnRemove()
@@ -37,11 +40,18 @@ public class PlayerView : BaseView
     {
         Vector2 newPlayerPosition = (Vector2) data.data;
 
+        bool isFoolRebuild = false;
+
+        if (gameObject.transform.position.x < 0 || gameObject.transform.position.y < 0)
+        {
+            isFoolRebuild = true;
+        }
+
         playerPosition = newPlayerPosition;
         unityWorldPlayerPosition = newPlayerPosition;
         gameObject.transform.position = unityWorldPlayerPosition;
 
-        dispatcher.Dispatch(RootEvents.E_TileWorldCreate);
+        dispatcher.Dispatch(RootEvents.E_TileWorldCreate, playerPosition);
     }
 
     private void OnInputAction(strange.extensions.dispatcher.eventdispatcher.api.IEvent data)
@@ -50,9 +60,25 @@ public class PlayerView : BaseView
 
         if (inputActionModel != null)
         {
+
+            if (!inputAcion.Contains(inputActionModel.InputAction))
+            {
+                inputAcion.Add(inputActionModel.InputAction);
+            }
+
+            else
+            {
+                if (inputActionModel.InputState == InputStateEnum.Up)
+                {
+                    inputAcion.Remove(inputActionModel.InputAction);
+                    return;
+                }
+            }
+
+
             if (!isMovedOnThisFrame)
             {
-                switch (inputActionModel.InputAction)
+                switch (inputAcion[inputAcion.Count - 1])
                 {
                     case InputActionEnum.MoveUp:
                         playerPosition += Vector2.up * playerSpeed * Time.deltaTime;
@@ -80,14 +106,7 @@ public class PlayerView : BaseView
 
                 if (Math.Abs(newPos.x) > 1f || Math.Abs(newPos.y) > 1f)
                 {
-                    //Debug.LogError("Yep");
-                    
-                    //Debug.LogError(gameObject.transform.position.ToString());
-
                     newPos = new Vector2(unityWorldPlayerPosition.x + (int)newPos.x, unityWorldPlayerPosition.y + (int)newPos.y);
-
-                    Debug.LogError(unityWorldPlayerPosition.ToString());
-                    Debug.LogError(newPos.ToString());
 
                     dispatcher.Dispatch(RootEvents.E_PlayerNewPosition, newPos);
                 }
@@ -97,7 +116,7 @@ public class PlayerView : BaseView
 
     private IEnumerator WaitForNewFrame()
     {
-        yield return null;
+        yield return new WaitForEndOfFrame();
         isMovedOnThisFrame = false;
     }
 

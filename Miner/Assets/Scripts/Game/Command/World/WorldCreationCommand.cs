@@ -5,34 +5,16 @@ using UnityEngine;
 
 public class WorldCreationCommand : BaseCommand
 {
-    Vector2 playerPosition;
-
     public override void Execute()
     {
-        Action<Vector2> callBack = GetPlayerPosition;
-
-        dispatcher.Dispatch(RootEvents.E_PlayerPositionGet, callBack);
-
-        //bool isWorldUpsideDown = false;
-
-        //BuildWorldPart(playerPosition, world, renderWidth);
+        Vector2 playerPosition = (Vector2)eventData.data;
+        CoroutineWorker.StarCoroutine(WaitForEndOfFrame(playerPosition));
     }
 
-    private void GetPlayerPosition(Vector2 playerPosition)
+    private IEnumerator WaitForEndOfFrame(Vector2 playerPosition)
     {
-        this.playerPosition = playerPosition;
+        yield return new WaitForEndOfFrame();
 
-        Debug.LogError("BUILD");
-        Debug.LogError(playerPosition.ToString());
-
-        //BuildWorldPart(playerPosition, GameModel.WorldSize, (int)GameModel.PlayerWidth, GameModel.Seed);
-
-        CoroutineWorker.StarCoroutine(WaitForFrame());
-    }
-
-    private IEnumerator WaitForFrame()
-    {
-        yield return null;
         BuildWorldPart(playerPosition, GameModel.WorldSize, (int)GameModel.PlayerWidth, GameModel.Seed);
     }
 
@@ -183,14 +165,25 @@ public class WorldCreationCommand : BaseCommand
                     //Debug.LogError("Current PosY: " + posY.ToString());
                 }
 
+                Vector2 tilePos = new Vector2(posX, posY);
+                Vector2 unityWorldPosition = new Vector2(j, i);
+
                 if (!(posY == (int)playerPos.y && posX == (int)playerPos.x))
                 {
-                    SetTileRandom(new Vector2(posX, posY), new Vector2(j,i));
+                    if (GameModel.Map.ContainsKey(tilePos))
+                    {
+                        SetTileFromMap(tilePos, unityWorldPosition);
+                    }
+
+                    else
+                    {
+                        SetTileRandom(tilePos, unityWorldPosition);
+                    }
                 }
 
                 else
                 {
-                    SetNullTile(new Vector2(posX, posY), new Vector2(j, i));
+                    SetNullTile(tilePos, unityWorldPosition);
                 }
             }
         }
@@ -231,7 +224,7 @@ public class WorldCreationCommand : BaseCommand
         tile.InitPosition(tilePosition);
         tile.InitUnityWorldPosition(unityWorldPosition);
 
-        //GameModel.TileAddToMap(tile);
+        GameModel.TileAddToMap(tile);
 
         Debug.Log(String.Format("Tile {0} Pos:[{1}][{2}]    PosUnity:[{3}][{4}]", tile.TileType.ToString(), tilePosition.x, tilePosition.y, unityWorldPosition.x, unityWorldPosition.y));
 
@@ -241,6 +234,20 @@ public class WorldCreationCommand : BaseCommand
     private void SetNullTile(Vector2 position, Vector2 unityWorldPosition)
     {
         TileModel tile = new TileModel(TileTypeEnum.Empty, new List<ResourceModel>(), position, unityWorldPosition);
+
+        GameModel.TileRewriteToMap(tile);
+
         dispatcher.Dispatch(RootEvents.E_TileGameObjectInit, tile);
+    }
+
+    private void SetTileFromMap(Vector2 position, Vector2 unityWorldPosition)
+    {
+        TileModel tile = GameModel.Map[position];
+        tile.InitUnityWorldPosition(unityWorldPosition);
+
+        if (tile != null)
+        {
+            dispatcher.Dispatch(RootEvents.E_TileGameObjectInit, tile);
+        }
     }
 }

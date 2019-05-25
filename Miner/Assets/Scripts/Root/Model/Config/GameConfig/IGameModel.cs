@@ -17,4 +17,6 @@ public interface IGameModel
     void Init(Vector2Int worldSize, uint seed, uint renderWidth, List<TileCreateModel> tiles, Dictionary<Vector2, TileModel> map = null);
 
     void TileAddToMap(TileModel tile);
+
+    void TileRewriteToMap(TileModel tile);
 }
