@@ -7,7 +7,9 @@ public class PlayerView : BaseView
 {
     private Vector2 playerPosition;
     private Vector2 unityWorldPlayerPosition;
+    private List<ResourceModel> inventory; 
     private float playerSpeed = 1f;
+    private int inventoryMaxSlots = 20;
     private bool isMovedOnThisFrame = false;
     private Coroutine waitForNewFreameCoroutine;
     private List<InputActionEnum> inputAcion;
@@ -17,16 +19,18 @@ public class PlayerView : BaseView
     {
         dispatcher.AddListener(RootEvents.E_PlayerPositionGet, GivePlayerPosition);
         dispatcher.AddListener(RootEvents.E_InputOnKeyAction, OnInputAction);
-        dispatcher.AddListener(RootEvents.E_PlayerUpdatePosition, UpdatePosition);
+        dispatcher.AddListener(RootEvents.E_PlayerUpdate, PlayerUpdate);
 
         inputAcion = new List<InputActionEnum>();
+
+        inventory = new List<ResourceModel>();
     }
 
     public override void OnRemove()
     {
         dispatcher.RemoveListener(RootEvents.E_PlayerPositionGet, GivePlayerPosition);
         dispatcher.RemoveListener(RootEvents.E_InputOnKeyAction, OnInputAction);
-        dispatcher.RemoveListener(RootEvents.E_PlayerUpdatePosition, UpdatePosition);
+        dispatcher.RemoveListener(RootEvents.E_PlayerUpdate, PlayerUpdate);
     }
 
     public void UpdatePosition(Vector2 playerPosition)
@@ -36,9 +40,9 @@ public class PlayerView : BaseView
         gameObject.transform.position = unityWorldPlayerPosition;
     }
 
-    public void UpdatePosition(strange.extensions.dispatcher.eventdispatcher.api.IEvent data)
+    public void PlayerUpdate(strange.extensions.dispatcher.eventdispatcher.api.IEvent data)
     {
-        Vector2 newPlayerPosition = (Vector2) data.data;
+        TileView tileView = (TileView) data.data;
 
         bool isFoolRebuild = false;
 
@@ -47,11 +51,28 @@ public class PlayerView : BaseView
             isFoolRebuild = true;
         }
 
-        playerPosition = newPlayerPosition;
-        unityWorldPlayerPosition = newPlayerPosition;
+        playerPosition = tileView.Position;
+        unityWorldPlayerPosition = tileView.Position;
         gameObject.transform.position = unityWorldPlayerPosition;
 
+        InventoryUpdate(tileView.Resources);
+
+        Debug.LogError(inventory.Count);
+
         dispatcher.Dispatch(RootEvents.E_TileWorldCreate, playerPosition);
+    }
+
+    private void InventoryUpdate(List<ResourceModel> resources)
+    {
+        foreach (ResourceModel resource in resources)
+        {
+            if (inventory.Count >= inventoryMaxSlots)
+            {
+                inventory.RemoveAt(0);
+            }
+
+            inventory.Add(resource);
+        }
     }
 
     private void OnInputAction(strange.extensions.dispatcher.eventdispatcher.api.IEvent data)

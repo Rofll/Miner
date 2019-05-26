@@ -60,14 +60,11 @@ public class TileWorldHolderView : BaseView
 
         if (tilesWorld.ContainsKey(playerPosition))
         {
-            Debug.LogError("BBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
-
             TileView tileView = tilesWorld[playerPosition][0].gameObject.GetComponent<TileView>();
 
             if (tileView != null)
             {
-                Debug.LogError("CCCCCCCCCCCCCCCCCCCCCCCCC");
-                dispatcher.Dispatch(RootEvents.E_PlayerUpdatePosition, tileView.Position);
+                dispatcher.Dispatch(RootEvents.E_PlayerUpdate, tileView);
                 GiveTyle();
             }
         }

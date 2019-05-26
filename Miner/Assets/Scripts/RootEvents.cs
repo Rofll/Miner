@@ -28,7 +28,7 @@ public enum RootEvents
     E_PlayerCreate,
     E_PlayerPositionGet,
     E_PlayerNewPosition,
-    E_PlayerUpdatePosition,
+    E_PlayerUpdate,
     //
 
     // Tile

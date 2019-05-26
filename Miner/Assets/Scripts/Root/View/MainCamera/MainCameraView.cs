@@ -14,8 +14,6 @@ public class MainCameraView : BaseView
 
     public override void OnRegister()
     {
-        Debug.LogError("Hello");
-
         dispatcher.AddListener(RootEvents.E_CameraMainStartFolowPlayer, OnCameraMainStartFolowPlayer);
         dispatcher.AddListener(RootEvents.E_CameraMainStopFolowPlayer, OnCameraMainStopFolowPlayer);
 
