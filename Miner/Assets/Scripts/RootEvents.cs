@@ -17,6 +17,12 @@ public enum RootEvents
     E_InputOnKeyAction,
     //
 
+    // Game Root
+
+    E_GameOverWin,
+
+    //
+
     // Camera
 
     E_CameraMainStartFolowPlayer,
@@ -43,6 +49,7 @@ public enum RootEvents
 
     // Resources
     E_ResourcesCreateRandom,
+    E_UI_ResourceUpdate,
     //
 
 

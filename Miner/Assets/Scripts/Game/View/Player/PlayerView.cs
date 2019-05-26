@@ -64,14 +64,24 @@ public class PlayerView : BaseView
 
     private void InventoryUpdate(List<ResourceModel> resources)
     {
+
         foreach (ResourceModel resource in resources)
         {
+
             if (inventory.Count >= inventoryMaxSlots)
             {
                 inventory.RemoveAt(0);
             }
 
             inventory.Add(resource);
+
+            dispatcher.Dispatch(RootEvents.E_UI_ResourceUpdate, new UI_ResourceUpdateModel(resource.ObjectType, resource.ObjectCount));
+
+            if (resource.ObjectType == ResourceTypesEnum.Chest)
+            {
+                dispatcher.Dispatch(RootEvents.E_GameOverWin);
+                return;
+            }
         }
     }
 
