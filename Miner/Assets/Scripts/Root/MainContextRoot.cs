@@ -39,7 +39,7 @@ public class MainContextRoot : MVCSContext
 
 	}
 
-	// Commands and Bindings
+    // Commands and Bindings
     protected override void mapBindings()
     {
         //base.mapBindings();
@@ -60,6 +60,7 @@ public class MainContextRoot : MVCSContext
             .To<TilePoolCreateCommand>()
             .To<TileWorldHolderCreateCommand>()
             .To<RetainOneFrameCommand>()
+            .To<UI_HUDCreateCommand>()
             .To<TileChestCreateCommand>()
             .To<WorldCreationAtFirstCommand>()
             .To<CameraMainStartFolowPlayerCommand>()
@@ -69,7 +70,7 @@ public class MainContextRoot : MVCSContext
             .Once();
 
         //////////////////////////////////////////////////////////////////////// Root
-        
+
         // MainCamera
 
         mediationBinder.BindView<MainCameraView>().ToMediator<MainCameraMediator>();
@@ -79,7 +80,7 @@ public class MainContextRoot : MVCSContext
         /////////////////////////////////////////////////////////////////////// 
 
         ///////////////////////////////////////////////////////////////////////  Game
-        
+
         // Player
 
         mediationBinder.BindView<PlayerView>().ToMediator<PlayerMediator>();
@@ -111,9 +112,16 @@ public class MainContextRoot : MVCSContext
 
         /////////////////////////////////////////////////////////////////////// UI
 
+        // HUD
+
+        mediationBinder.BindView<UI_HUDView>().To<UI_HUDMediator>();
+        mediationBinder.BindView<UI_InventoryCellView>().ToMediator<UI_InventoryCellMediator>();
+
+        commandBinder.Bind(RootEvents.E_UI_HUDCreateCommand).To<UI_HUDCreateCommand>().Pooled();
+        commandBinder.Bind(RootEvents.E_UI_HUDDestoryCommand).To<UI_HUDDestroyCommand>().Pooled();
+        //
 
 
-        
         ///////////////////////////////////////////////////////////////////////
     }
 }

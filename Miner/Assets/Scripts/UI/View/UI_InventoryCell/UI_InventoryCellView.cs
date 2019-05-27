@@ -29,21 +29,33 @@ public class UI_InventoryCellView : BaseView
     public void InitResource(ResourceTypesEnum resourceType)
     {
         this.resourceType = resourceType;
-        resourceTypeText.text = resourceType.ToString() + " 0";
+        resourceTypeText.text = resourceType.ToString() + ": 0";
     }
 
     private void ResourceUpdate(strange.extensions.dispatcher.eventdispatcher.api.IEvent data)
     {
-        UI_ResourceUpdateModel resourceUpdateModel = data.data as UI_ResourceUpdateModel;
+        List<ResourceModel> resources = data.data as List<ResourceModel>;
 
-        if (resourceUpdateModel != null)
+        if (resources != null)
         {
-            if (this.resourceType == resourceUpdateModel.ResourceType)
+            int count = 0;
+            bool isFound = false;
+
+            foreach (ResourceModel resourceModel in resources)
             {
-                resourceTypeText.text = resourceType.ToString() + " " + resourceUpdateModel.Count.ToString();
+                if (resourceModel != null && resourceType == resourceModel.ObjectType)
+                {
+                    isFound = true;
+                    count++;
+                    resourceTypeText.text = resourceType.ToString() + " " + count.ToString();
+                }
+            }
+
+            if (!isFound)
+            {
+                resourceTypeText.text = resourceType.ToString() + " "  + 0;
             }
         }
 
-       
     }
 }

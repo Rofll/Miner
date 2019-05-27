@@ -57,7 +57,7 @@ public class PlayerView : BaseView
 
         InventoryUpdate(tileView.Resources);
 
-        Debug.LogError(inventory.Count);
+        //Debug.LogError(inventory.Count);
 
         dispatcher.Dispatch(RootEvents.E_TileWorldCreate, playerPosition);
     }
@@ -67,22 +67,30 @@ public class PlayerView : BaseView
 
         foreach (ResourceModel resource in resources)
         {
-
-            if (inventory.Count >= inventoryMaxSlots)
+            for (int i = 0; i < resource.ObjectCount; i++)
             {
-                inventory.RemoveAt(0);
+                if (inventory.Count >= inventoryMaxSlots)
+                {
+                    inventory.RemoveAt(0);
+                }
+
+                inventory.Add(new ResourceModel(resource.ObjectType, 1));
+
+                if (resource.ObjectType == ResourceTypesEnum.Chest)
+                {
+                    dispatcher.Dispatch(RootEvents.E_GameOverWin);
+                    return;
+                }
             }
-
-            inventory.Add(resource);
-
-            dispatcher.Dispatch(RootEvents.E_UI_ResourceUpdate, new UI_ResourceUpdateModel(resource.ObjectType, resource.ObjectCount));
-
-            if (resource.ObjectType == ResourceTypesEnum.Chest)
-            {
-                dispatcher.Dispatch(RootEvents.E_GameOverWin);
-                return;
-            }
+           
         }
+
+        dispatcher.Dispatch(RootEvents.E_UI_ResourceUpdate, inventory);
+
+        //foreach (var item in inventory)
+        //{
+        //    Debug.LogError(item.ObjectType.ToString() + " " + item.ObjectCount.ToString());
+        //}
     }
 
     private void OnInputAction(strange.extensions.dispatcher.eventdispatcher.api.IEvent data)

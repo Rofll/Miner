@@ -88,6 +88,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1075251312463078550}
+  - component: {fileID: 9201039942763999560}
   m_Layer: 0
   m_Name: UI_InventoryCell
   m_TagString: Untagged
@@ -115,3 +116,16 @@ RectTransform:
   m_AnchoredPosition: {x: 50, y: 50}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &9201039942763999560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8796758399182435490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d0d46b031d7caf4486a36898c2e9bbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceTypeText: {fileID: 1835892759}
