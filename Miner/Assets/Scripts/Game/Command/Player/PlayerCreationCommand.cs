@@ -20,7 +20,9 @@ public class PlayerCreationCommand : BaseCommand
                 GameObject clone = Object.Instantiate(playerObject) as GameObject;
                 clone.name = OBJECT_NAME;
 
-                Vector2 playerPosition = new Vector2(((GameModel.Seed + 1) * GameModel.WorldSize.y / 2 * 100) % GameModel.WorldSize.x, ((GameModel.Seed + 1) * GameModel.WorldSize.x / 3 * 100) % GameModel.WorldSize.y);
+                //Vector2 playerPosition = new Vector2(((GameModel.Seed + 1) * GameModel.WorldSize.y / 2 * 100) % GameModel.WorldSize.x, ((GameModel.Seed + 1) * GameModel.WorldSize.x / 3 * 100) % GameModel.WorldSize.y);
+
+                Vector2 playerPosition = Vector2.zero;
 
                 PlayerView playerView = clone.GetComponent<PlayerView>();
 

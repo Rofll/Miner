@@ -5,15 +5,31 @@ using UnityEngine;
 
 public class WorldCreationCommand : BaseCommand
 {
+    private static bool isUpsideDown = false;
+    private static Vector2 playerPositionOld = Vector2.down;
+
     public override void Execute()
     {
         Vector2 playerPosition = (Vector2)eventData.data;
+
         CoroutineWorker.StarCoroutine(WaitForEndOfFrame(playerPosition));
     }
 
     private IEnumerator WaitForEndOfFrame(Vector2 playerPosition)
     {
         yield return new WaitForEndOfFrame();
+
+        if (playerPositionOld != Vector2.down)
+        {
+            if (Math.Abs(playerPosition.x - playerPositionOld.x) > 1 && Math.Abs(playerPosition.x - playerPositionOld.x) != GameModel.WorldSize.x - 1)
+            {
+                isUpsideDown = !isUpsideDown;
+
+                //Debug.LogError(isUpsideDown.ToString());
+            }
+        }
+
+        playerPositionOld = playerPosition;
 
         BuildWorldPart(playerPosition, GameModel.WorldSize, (int)GameModel.PlayerWidth, GameModel.Seed);
     }
@@ -25,8 +41,10 @@ public class WorldCreationCommand : BaseCommand
 
         int worldHalfX = world.x / 2;
 
+
         for (int i = (int)playerPos.y - renderWidth; i <= playerPos.y + renderWidth; i++)
         {
+
             //countY++;
             //countX = 0;
 
@@ -179,6 +197,12 @@ public class WorldCreationCommand : BaseCommand
                     {
                         SetTileRandom(tilePos, unityWorldPosition);
                     }
+
+                    //Debug.LogError("Current j: " + j.ToString());
+                    //Debug.LogError("Current i: " + i.ToString());
+                    //Debug.LogError("Tile Pos");
+                    //Debug.LogError(tilePos.ToString());
+
                 }
 
                 else
@@ -187,6 +211,8 @@ public class WorldCreationCommand : BaseCommand
                 }
             }
         }
+
+        dispatcher.Dispatch(RootEvents.E_TileSetToWorldComplete, isUpsideDown);
     }
 
     private TileModel tile;

@@ -45,6 +45,7 @@ public enum RootEvents
     E_TileGameObjectInit,
     E_TileWorldHolderCreate,
     E_TileWorldCreate,
+    E_TileSetToWorldComplete,
     //
 
     // Resources
